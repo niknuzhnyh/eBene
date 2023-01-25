@@ -1,4 +1,4 @@
-const URL = 'https://apivarty.azurewebsites.net/api/WorkingShift/2023-01-25T19%3A36%3A22.555Z';
+const URL = 'https://apivarty.azurewebsites.net/api/v1/WorkingShift/2023-01-25T20%3A42%3A05.471Z';
 
 const auth = localStorage.getItem("auth");
 if (auth) {
@@ -44,7 +44,7 @@ function getSchedule(params) {
    if (params) {
       url = `${URL}?${params}`;
    }
-   fetch(url, {mode: 'no-cors'})
+   fetch(url)
       .then((response) => {
          console.log(response)
          return response.json();
@@ -108,4 +108,7 @@ function hiddenSwitching(visId, hiddId) {
    hidd.classList.toggle("hidden");
 }
 
+// fetch('https://jsonplaceholder.typicode.com/todos/1')
+//       .then(response => response.json())
+//       .then(json => console.log(json))
 console.log("ok");
