@@ -44,8 +44,9 @@ function getSchedule(params) {
    if (params) {
       url = `${URL}?${params}`;
    }
-   fetch(url)
+   fetch(url, {mode: 'no-cors'})
       .then((response) => {
+         console.log(response)
          return response.json();
       })
       .then((data) => {
