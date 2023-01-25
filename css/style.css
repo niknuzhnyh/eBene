@@ -1,0 +1,95 @@
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+body {
+   padding: 15px;
+   min-height: 100vh;
+}
+input{
+   font-weight: 900;
+   width: 50%;
+   margin: 0 auto;
+   padding: .5rem 1rem;
+   border-radius: 1rem;
+}
+
+.hidden {
+   display: none;
+}
+.df {
+   display: flex;
+}
+.container{
+   width: 100%;
+   max-width: 1100px;
+   margin: 2rem auto;
+}
+.tac{
+   text-align: center;
+}
+.aic{
+   align-items: center;
+}
+
+header {
+   justify-content: space-between;
+}
+.logo img {
+   height: 4rem;
+   width: 4rem;
+}
+.bmenu a{
+   display: block;
+   text-decoration: none;
+   color:#fff;
+}
+.meinMenuWrap{
+   padding-top: 20%;
+}
+.meinMenuWrap p{
+   margin-top: 20px;
+   padding: 15px;
+}
+.bmenu{
+   color: #fff;
+   font-weight: 900;
+   max-width: 50%;
+   margin: 20px auto;
+   padding: .5rem 1rem;
+   border-radius: 1.2rem;
+   background-color: #000;
+}
+.scheduleWrap{
+   width: 100%;
+   min-height: 70vh;
+}
+.tRow{
+   width: 100%;
+   border: #000 1px solid;
+   min-height: 2rem;
+   padding: 0 0.5rem;
+}
+.tRow:not(:first-child){
+   border-top: none;
+}
+.rowItem{
+   line-height: 2rem;
+   width: 50%;
+}
+.rowTimeDesc,
+.rowChiefDesc{
+   border-right: #000 1px solid;
+}
+.rowChief,
+.rowGuardDesc{
+   flex-grow: 1;
+}
+.preloaderWrap{
+   padding-top: 40vh;
+}
+
+/* .startPage{
+   display: none;
+} */

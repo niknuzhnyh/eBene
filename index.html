@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ua">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/burger.css">
+   <link rel="stylesheet" href="css/style.css">
+   <title>Є БЕНЕ</title>
+</head>
+
+<body>
+   <header class="header df">
+      <div class="logo"><img src="images/logo.png" alt="logo">
+      </div>
+      <div class="burger">
+         <div class="menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+         </div>
+      </div>
+   </header>
+   <div class="menu hidden">
+      <nav>
+         <ul>
+            <li class="bmenu" id="logOut">Вийти</li>
+         </ul>
+      </nav>
+   </div>
+   <section class="authorization" id="authorization">
+      <div class="container tac">
+         <div class="meinMenuWrap">
+            <div id="authInput">
+               <p>Введіть пароль</p>
+               <input type="password" name="authPass" id="authPass">
+            </div>
+            <div class="bmenu tac" id="loginBtn">
+               Увійти
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="startPage hidden" id="startPage">
+      <div class="container tac">
+         <div class="meinMenuWrap">
+            <div class="bmenu tac" id="todayBtn" >
+               Графік на сьогодні
+            </div>
+            <div class="bmenu tac">
+               Графік за датою
+            </div>
+            <p>
+               Невдовзі тут з'явится багато чого корисного та цікавого, чекайте на оновлення.
+            </p>
+         </div>
+      </div>
+   </section>
+   <section class="schedule hidden" id="schedule">
+      <div class="scheduleWrap df aic">
+         <div class="container tac">
+            <h2>Склад варти з <span id="dateFrom"></span> по <span id="dateTo"></span></h2>
+            <div class="tableWrap" id="tableWrap">
+               <div class="tRow df">
+                  <div class="rowItem rowChiefDesc">
+                     Начальник варти
+                  </div>
+                  <div class="rowItem rowChief" id="chief">
+                     -----------
+                  </div>
+               </div>
+               <div class="tRow df">
+                  <div class="rowTimeDesc rowItem">
+                     Час зміни варти
+                  </div>
+                  <div class="rowGuardDesc rowItem">
+                     Прізвища чатових
+                  </div>
+               </div>
+
+               <!-- <div class="tRow df">
+                  <div class="rowTimeDesc rowItem" id="timeItem">
+                     --:-- - --:--
+                  </div>
+                  <div class="rowGuardDesc rowItem" id="guardItem">
+                     ----------- -----------
+                  </div>
+               </div> -->
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="preloader hidden" id="preloader">
+      <div class="preloaderWrap tac">
+         <h2>чЕкаєм</h2>
+      </div>
+   </section>
+
+
+   <script src="js/burger.js"></script>
+   <script src="js/main.js"></script>
+</body>
+
+</html>
