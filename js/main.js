@@ -36,6 +36,14 @@ todayBtn.onclick = () => {
    getSchedule();
 };
 
+// go out to schedule
+const schedulePrev = document.getElementById("schedulePrev");
+schedulePrev.onclick = () => {
+   hiddenSwitching("schedule", "startPage");
+};
+
+
+
 function getSchedule(params) {
    let url = URL;
    let date = new Date().toISOString()
