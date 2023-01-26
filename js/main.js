@@ -1,4 +1,5 @@
-const URL = 'https://apivarty.azurewebsites.net/api/v1/WorkingShift/2023-01-25T20%3A42%3A05.471Z';
+const URL = 'https://apivarty.azurewebsites.net/api/v1/WorkingShift/';
+// const URL = 'example.json';
 
 const auth = localStorage.getItem("auth");
 if (auth) {
@@ -31,18 +32,18 @@ logOutBtn.onclick = () => {
 // Get today's schedule
 const todayBtn = document.getElementById("todayBtn");
 todayBtn.onclick = () => {
-   // hiddenSwitching("startPage", "preloader");
    hiddenSwitching("startPage", "schedule");
-   // setTimeout(() => {
-   //    hiddenSwitching("preloader", "schedule");
-   // }, 1000);
    getSchedule();
 };
 
 function getSchedule(params) {
    let url = URL;
+   let date = new Date().toISOString()
    if (params) {
       url = `${URL}?${params}`;
+   } else {
+      url = `${URL}${date}`;
+      console.log(url)
    }
    fetch(url)
       .then((response) => {
@@ -108,7 +109,4 @@ function hiddenSwitching(visId, hiddId) {
    hidd.classList.toggle("hidden");
 }
 
-// fetch('https://jsonplaceholder.typicode.com/todos/1')
-//       .then(response => response.json())
-//       .then(json => console.log(json))
 console.log("ok");
