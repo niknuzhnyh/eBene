@@ -46,11 +46,9 @@ function getSchedule(params) {
    }
    fetch(url)
       .then((response) => {
-         console.log(response)
          return response.json();
       })
       .then((data) => {
-         console.log(data);
          tableRendering(data);
       });
 }
