@@ -1,4 +1,4 @@
-const URL = 'https://apivarty.azurewebsites.net/api/v1/WorkingShift/';
+const URL = "https://apivarty.azurewebsites.net/api/v1/WorkingShift/";
 // const URL = 'example.json';
 
 const auth = localStorage.getItem("auth");
@@ -42,11 +42,9 @@ schedulePrev.onclick = () => {
    hiddenSwitching("schedule", "startPage");
 };
 
-
-
 function getSchedule(params) {
    let url = URL;
-   let date = new Date().toISOString()
+   let date = new Date().toISOString();
    if (params) {
       url = `${URL}?${params}`;
    } else {
@@ -62,7 +60,6 @@ function getSchedule(params) {
 }
 
 function tableRendering(data) {
-
    let dateFrom = dateFormta(data.dateFrom);
    let dateTo = dateFormta(data.dateTo);
    let duties = data.duties;
@@ -70,12 +67,14 @@ function tableRendering(data) {
    renderData("dateTo", dateTo);
    renderData("chief", data.сhief);
 
+   document.getElementById("tableBody").innerHTML = "";
+
    duties.forEach((element) => {
-      let guard =''
+      let guard = "";
       element.guard.forEach((el) => {
-         guard += ' '
-         guard +=  el.split(' ')[0]
-      })
+         guard += " ";
+         guard += el.split(" ")[0];
+      });
       let rowTemplate = `  
       <div class="tRow df">
          <div class="rowTimeDesc rowItem">
@@ -85,10 +84,9 @@ function tableRendering(data) {
             ${guard}
          </div>
       </div>`;
-      document.getElementById('tableWrap').innerHTML += rowTemplate
+      document.getElementById("tableBody").innerHTML += rowTemplate;
    });
 }
-
 
 function renderData(id, data) {
    let item = document.getElementById(`${id}`);
