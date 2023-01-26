@@ -43,7 +43,6 @@ function getSchedule(params) {
       url = `${URL}?${params}`;
    } else {
       url = `${URL}${date}`;
-      console.log(url)
    }
    fetch(url)
       .then((response) => {
@@ -69,7 +68,7 @@ function tableRendering(data) {
       let guard =''
       element.guard.forEach((el) => {
          guard += ' '
-         guard +=  el
+         guard +=  el.split(' ')[0]
       })
       let rowTemplate = `  
       <div class="tRow df">
