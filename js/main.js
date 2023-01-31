@@ -85,25 +85,32 @@ function hiddenSwitching(visId, hiddId) {
 }
 
 function handleCredentialResponse(response) {
-   let payload = parseJwt(response.credential)
+   let payload = parseJwt(response.credential);
    console.log(response.credential);
    console.log(payload);
    console.log(response);
 }
 
-function parseJwt (token) {
-   var base64Url = token.split('.')[1];
-   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-   var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-   return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-   }).join(''));
+function parseJwt(token) {
+   var base64Url = token.split(".")[1];
+   var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+   var jsonPayload = decodeURIComponent(
+      window
+         .atob(base64)
+         .split("")
+         .map(function (c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+         })
+         .join("")
+   );
 
    return JSON.parse(jsonPayload);
 }
 
 async function getDateRange() {
-   let url = 'https://apivarty.azurewebsites.net/api/v1/WorkingShift/GetAvailableDates';
-   let minDate = new Date().toISOString().split('T')[0];
+   let url =
+      "https://apivarty.azurewebsites.net/api/v1/WorkingShift/GetAvailableDates";
+   let minDate = new Date().toISOString().split("T")[0];
    let maxDate;
    let dateRange = {};
    fetch(url)
@@ -111,14 +118,17 @@ async function getDateRange() {
          return response.json();
       })
       .then((data) => {
-         maxDate = data[0].split('T')[0];
-      }).then(() => {
+         maxDate = data[0].split("T")[0];
+      })
+      .then(() => {
          dateRange.maxDate = maxDate;
          dateRange.minDate = minDate;
-      })
-   return dateRange
+      });
+   return dateRange;
 }
 
-console.log(getDateRange());
+getDateRange().then((value) => {
+   console.log(value);
+});
 
 console.log("ok");
