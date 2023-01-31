@@ -55,6 +55,7 @@ function getSchedule(params) {
          return response.json();
       })
       .then((data) => {
+         console.log(data);
          tableRendering(data);
       });
 }
