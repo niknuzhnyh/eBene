@@ -103,17 +103,22 @@ function parseJwt (token) {
 
 function getDateRange() {
    let url = 'https://apivarty.azurewebsites.net/api/v1/WorkingShift/GetAvailableDates';
-   let date = new Date().toISOString().split('T')[0];
+   let minDate = new Date().toISOString().split('T')[0];
+   let maxDate;
+   let dateRange = {};
    fetch(url)
       .then((response) => {
          return response.json();
       })
       .then((data) => {
-         console.log(date);
-         console.log(data[0].split('T')[0]);
+         maxDate = data[0].split('T')[0];
       });
+   dateRange.maxDate = maxDate;
+   dateRange.minDate = minDate;
+   return dateRange
 }
 
 getDateRange();
+console.log(getDateRange());
 
 console.log("ok");
