@@ -112,12 +112,13 @@ async function getDateRange() {
       })
       .then((data) => {
          maxDate = data[0].split('T')[0];
-      });
-   dateRange.maxDate = maxDate;
-   dateRange.minDate = minDate;
+      }).then(() => {
+         dateRange.maxDate = maxDate;
+         dateRange.minDate = minDate;
+      })
    return dateRange
 }
 
-console.log(await getDateRange());
+console.log(getDateRange());
 
 console.log("ok");
