@@ -1,34 +1,6 @@
 const URL = "https://apivarty.azurewebsites.net/api/v1/WorkingShift/";
 // const URL = 'example.json';
 
-const auth = localStorage.getItem("auth");
-if (auth) {
-   hiddenSwitching("authorization", "startPage");
-}
-
-// log in
-const loginBtn = document.getElementById("loginBtn");
-
-loginBtn.onclick = () => {
-   const pass = document.getElementById("authPass").value;
-   if (pass === "2023") {
-      localStorage.setItem("auth", true);
-      hiddenSwitching("authorization", "startPage");
-   } else {
-      document.getElementById("authInput").innerHTML = "<h1>Допобачення</h1>";
-      loginBtn.textContent = "OK";
-      loginBtn.onclick = () => location.reload();
-   }
-};
-
-// log out
-const logOutBtn = document.getElementById("logOut");
-
-logOutBtn.onclick = () => {
-   localStorage.removeItem("auth");
-   location.reload();
-};
-
 // Get today's schedule
 const todayBtn = document.getElementById("todayBtn");
 todayBtn.onclick = () => {
