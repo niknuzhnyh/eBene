@@ -107,7 +107,7 @@ function parseJwt(token) {
    return JSON.parse(jsonPayload);
 }
 
-async function getDateRange() {
+function getDateRange() {
    let url =
       "https://apivarty.azurewebsites.net/api/v1/WorkingShift/GetAvailableDates";
    let minDate;
