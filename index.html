@@ -31,22 +31,24 @@
       </nav>
    </div>
 
- <div id="g_id_onload"
+<div id="g_id_onload"
      data-client_id="426438892031-hl14rgfb10fvk1u0e66j13b79qot03v6.apps.googleusercontent.com"
-     data-context="signin"
-     data-ux_mode="popup"
-     data-callback="console.log('yo!')"
-     data-itp_support="true">
+     data-callback="handleCredentialResponse">
 </div>
+<script>
+  function handleCredentialResponse(response) {
+     // decodeJwtResponse() is a custom function defined by you
+     // to decode the credential response.
+     const responsePayload = decodeJwtResponse(response.credential);
 
-<div class="g_id_signin"
-     data-type="standard"
-     data-shape="rectangular"
-     data-theme="outline"
-     data-text="signin_with"
-     data-size="large"
-     data-logo_alignment="left">
-</div>
+     console.log("ID: " + responsePayload.sub);
+     console.log('Full Name: ' + responsePayload.name);
+     console.log('Given Name: ' + responsePayload.given_name);
+     console.log('Family Name: ' + responsePayload.family_name);
+     console.log("Image URL: " + responsePayload.picture);
+     console.log("Email: " + responsePayload.email);
+  }
+</script>
 
 
    <section class="authorization" id="authorization">
