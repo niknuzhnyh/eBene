@@ -24,10 +24,17 @@ function getSchedule(params) {
    }
    fetch(url)
       .then((response) => {
+         console.log('response')
+         console.log(Date.now())
          return response.json();
       })
       .then((data) => {
+         console.log('data')
+         console.log(Date.now())
          tableRendering(data);
+
+         console.log(Date.now())
+         console.log('render is finished')
       });
 }
 
