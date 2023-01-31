@@ -6,7 +6,6 @@ if (auth) {
    hiddenSwitching("authorization", "startPage");
 }
 
-
 // log in
 const loginBtn = document.getElementById("loginBtn");
 
@@ -111,6 +110,19 @@ function hiddenSwitching(visId, hiddId) {
 
    vis.classList.toggle("hidden");
    hidd.classList.toggle("hidden");
+}
+
+function handleCredentialResponse(response) {
+   let payload = decodeJwt(response.credential)
+   console.log(response.credential);
+   console.log(payload);
+   console.log(response);
+}
+
+function decodeJwt(token) {
+   var base64Payload = token.split(".")[1];
+   var payloadBuffer = Buffer.from(base64Payload, "base64");
+   return JSON.parse(payloadBuffer.toString());
 }
 
 console.log("ok");
