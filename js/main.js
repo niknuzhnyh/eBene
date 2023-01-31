@@ -6,11 +6,6 @@ if (auth) {
    hiddenSwitching("authorization", "startPage");
 }
 
-   let d = new Intl.DateTimeFormat("ua", {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-   });
 
 // log in
 const loginBtn = document.getElementById("loginBtn");
@@ -103,6 +98,11 @@ function renderData(id, data) {
 }
 
 function dateFormta(date) {
+   let d = new Intl.DateTimeFormat("ua", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+   });
    date = Date.parse(date);
    date = d.format(date);
    return date;
