@@ -110,7 +110,7 @@ function parseJwt(token) {
 async function getDateRange() {
    let url =
       "https://apivarty.azurewebsites.net/api/v1/WorkingShift/GetAvailableDates";
-   let minDate = new Date().toISOString().split("T")[0];
+   let minDate;
    let maxDate;
    let dateRange = {};
    fetch(url)
@@ -118,7 +118,8 @@ async function getDateRange() {
          return response.json();
       })
       .then((data) => {
-         maxDate = data[0].split("T")[0];
+         minDate = data[0].split("T")[0];
+         maxDate = data[`${data.length-1}`].split("T")[0];
       })
       .then(() => {
          dateRange.maxDate = maxDate;
