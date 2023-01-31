@@ -61,13 +61,16 @@ function getSchedule(params) {
          return response.json();
       })
       .then((data) => {
+         console.log(data);
          tableRendering(data);
       });
 }
 
 function tableRendering(data) {
    let dateFrom = dateFormta(data.dateFrom);
+   console.log(`df is ${dateFrom}`);
    let dateTo = dateFormta(data.dateTo);
+   console.log(`dt is ${dateTo}`);
    let duties = data.duties;
    renderData("dateFrom", dateFrom);
    renderData("dateTo", dateTo);
