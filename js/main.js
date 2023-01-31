@@ -103,7 +103,6 @@ function renderData(id, data) {
 }
 
 function dateFormta(date) {
-
    date = date.parse;
    date = d.format(date);
    return date;
