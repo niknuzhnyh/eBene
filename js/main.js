@@ -101,4 +101,19 @@ function parseJwt (token) {
    return JSON.parse(jsonPayload);
 }
 
+function getDateRange() {
+   let url = 'https://apivarty.azurewebsites.net/api/v1/WorkingShift/GetAvailableDates';
+   let date = new Date().toISOString().split('T')[0];
+   fetch(url)
+      .then((response) => {
+         return response.json();
+      })
+      .then((data) => {
+         console.log(date);
+         console.log(data[0].split('T')[0]);
+      });
+}
+
+getDateRange();
+
 console.log("ok");
