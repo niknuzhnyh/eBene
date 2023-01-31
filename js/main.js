@@ -119,6 +119,8 @@ async function getDateRange() {
    return dateRange
 }
 
-console.log(getDateRange());
+let dateRange = await getDateRange()
+
+console.log(dateRange);
 
 console.log("ok");
