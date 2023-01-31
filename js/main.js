@@ -22,6 +22,7 @@ function getSchedule(params) {
    } else {
       url = `${URL}${date}`;
    }
+   console.log('start')
    fetch(url)
       .then((response) => {
          console.log('response')
