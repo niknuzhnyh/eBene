@@ -36,6 +36,7 @@ input{
 header {
    justify-content: space-between;
 }
+.g_id_signout img,
 .logo img {
    height: 4rem;
    width: 4rem;
