@@ -1,6 +1,8 @@
 const URL = "https://apivarty.azurewebsites.net/api/v1/WorkingShift/";
 // const URL = 'example.json';
 
+let authJWT;
+
 // Get today's schedule
 const todayBtn = document.getElementById("todayBtn");
 todayBtn.onclick = () => {
@@ -94,7 +96,9 @@ function hiddenSwitching(visId, hiddId) {
 }
 
 function handleCredentialResponse(response) {
-   let payload = parseJwt(response.credential);
+   let authJWT = parseJwt(response.credential);
+   authJWT = authJWT;
+   hiddenSwitching(singInBtn, singOutBtn)
    console.log(response.credential);
    console.log(payload);
    console.log(response);
