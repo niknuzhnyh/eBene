@@ -102,8 +102,8 @@ function hiddenSwitching(visId, hiddId) {
 }
 
 function handleCredentialResponse(response) {
-   let authJWT = parseJwt(response.credential);
-   authJWT = authJWT;
+   let payload = parseJwt(response.credential);
+   authJWT = response.credential;
    hiddenSwitching("singInBtn", "singOutBtn");
    console.log(response.credential);
    console.log(payload);
