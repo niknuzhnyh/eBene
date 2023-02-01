@@ -19,6 +19,7 @@ schedulePrev.onclick = () => {
 const singOutBtn = document
    .getElementById("singOutBtn")
    .addEventListener("click", () => {
+      authJWT = "";
       hiddenSwitching("singInBtn", "singOutBtn");
    });
 
