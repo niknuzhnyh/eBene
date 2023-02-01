@@ -16,6 +16,12 @@ schedulePrev.onclick = () => {
    hiddenSwitching("schedule", "startPage");
 };
 
+const singOutBtn = document
+   .getElementById("singOutBtn")
+   .addEventListener("click", () => {
+      hiddenSwitching("singInBtn", "singOutBtn");
+   });
+
 function getSchedule(params) {
    let url = URL;
    let date = new Date().toISOString();
@@ -24,21 +30,21 @@ function getSchedule(params) {
    } else {
       url = `${URL}${date}`;
    }
-   console.log('start')
-   console.log(Date.now())
+   console.log("start");
+   console.log(Date.now());
    fetch(url)
       .then((response) => {
-         console.log('response')
-         console.log(Date.now())
+         console.log("response");
+         console.log(Date.now());
          return response.json();
       })
       .then((data) => {
-         console.log('data')
-         console.log(Date.now())
+         console.log("data");
+         console.log(Date.now());
          tableRendering(data);
 
-         console.log(Date.now())
-         console.log('render is finished')
+         console.log(Date.now());
+         console.log("render is finished");
       });
 }
 
@@ -98,7 +104,7 @@ function hiddenSwitching(visId, hiddId) {
 function handleCredentialResponse(response) {
    let authJWT = parseJwt(response.credential);
    authJWT = authJWT;
-   hiddenSwitching(singInBtn, singOutBtn)
+   hiddenSwitching("singInBtn", "singOutBtn");
    console.log(response.credential);
    console.log(payload);
    console.log(response);
@@ -132,7 +138,7 @@ async function getDateRange() {
       })
       .then((data) => {
          minDate = data[0].split("T")[0];
-         maxDate = data[`${data.length-1}`].split("T")[0];
+         maxDate = data[`${data.length - 1}`].split("T")[0];
       })
       .then(() => {
          dateRange.maxDate = maxDate;
