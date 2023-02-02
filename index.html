@@ -19,8 +19,8 @@
          <div id="singInBtn" class="singInBtn">
             <div id="g_id_onload"
                data-client_id="426438892031-hl14rgfb10fvk1u0e66j13b79qot03v6.apps.googleusercontent.com"
-               data-context="signin" data-ux_mode="popup" data-auto_select="true" data-callback="handleCredentialResponse"
-               data-itp_support="true">
+               data-context="signin" data-ux_mode="popup" data-auto_select="true"
+               data-callback="handleCredentialResponse" data-itp_support="true">
             </div>
             <div class="g_id_signin" data-type="icon" data-shape="square" data-theme="filled_black"
                data-text="signin_with" data-size="large" data-locale="uk">
@@ -32,13 +32,7 @@
             </div>
          </div>
       </div>
-
    </header>
-
-
-   <!-- <div id="g_id_onload" data-client_id="426438892031-hl14rgfb10fvk1u0e66j13b79qot03v6.apps.googleusercontent.com"
-      data-auto_select="true" data-callback="handleCredentialResponse">
-   </div> -->
 
    <section class="startPage" id="startPage">
       <div class="container tac">
@@ -46,7 +40,7 @@
             <div class="bmenu tac" id="todayBtn">
                Графік на сьогодні
             </div>
-            <div class="bmenu tac">
+            <div class="bmenu tac" id="byDateBtn">
                Графік за датою
             </div>
             <p>
@@ -85,6 +79,13 @@
    <section class="preloader hidden" id="preloader">
       <div class="preloaderWrap tac">
          <h2>чЕкаєм</h2>
+      </div>
+   </section>
+   <section class="dateInpt hidden" id="dateInpt">
+      <div class="dateInptWrap tac">
+         <label for="datePicker">Оберіть дату</label>
+         <input type="date" id="datePicker" name="datePicker">
+         <button class="bmenu" id="datePickerBtn">Отримати графік</button>
       </div>
    </section>
 

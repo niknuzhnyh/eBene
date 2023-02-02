@@ -16,12 +16,24 @@ schedulePrev.onclick = () => {
    hiddenSwitching("schedule", "startPage");
 };
 
+// sign out
 const singOutBtn = document
    .getElementById("singOutBtn")
    .addEventListener("click", () => {
       authJWT = "";
       hiddenSwitching("singInBtn", "singOutBtn");
    });
+
+// get schedule by date
+document.getElementById('byDateBtn').onclick = () => {
+   hiddenSwitching("startPage", "dateInpt");
+}
+document.getElementById('datePickerBtn').onclick = () => {
+   hiddenSwitching("dateInpt", "schedule");
+   let datePicker = document.getElementById("datePicker")
+   getSchedule(datePicker.value)
+}
+
 
 function getSchedule(params) {
    let url = URL;
@@ -31,21 +43,12 @@ function getSchedule(params) {
    } else {
       url = `${URL}${date}`;
    }
-   console.log("start");
-   console.log(Date.now());
    fetch(url)
       .then((response) => {
-         console.log("response");
-         console.log(Date.now());
          return response.json();
       })
       .then((data) => {
-         console.log("data");
-         console.log(Date.now());
          tableRendering(data);
-
-         console.log(Date.now());
-         console.log("render is finished");
       });
 }
 
@@ -144,12 +147,15 @@ async function getDateRange() {
       .then(() => {
          dateRange.maxDate = maxDate;
          dateRange.minDate = minDate;
+
+         let datePicker = document.getElementById("datePicker");
+         datePicker.value = new Date().toISOString().split("T")[0];
+         datePicker.min = minDate;
+         datePicker.max = maxDate;
       });
-   return dateRange;
 }
 
-getDateRange().then((value) => {
-   console.log(value);
-});
+getDateRange();
+
 
 console.log("ok");

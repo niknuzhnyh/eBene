@@ -14,6 +14,15 @@ input{
    padding: .5rem 1rem;
    border-radius: 1rem;
 }
+label{
+   display: block;
+   font-size: 1.2rem;
+   font-weight: bold;
+   margin-bottom: 1rem;
+}
+button{
+   display: block;
+}
 
 .hidden {
    display: none;
@@ -92,6 +101,9 @@ header {
 }
 .preloaderWrap{
    padding-top: 40vh;
+}
+.dateInptWrap{
+   padding-top: 25vh;
 }
 
 /* .startPage{
