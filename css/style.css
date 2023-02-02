@@ -6,6 +6,7 @@
 body {
    padding: 15px;
    min-height: 100vh;
+   color: #17181c;
 }
 input {
    font-weight: 900;
@@ -50,8 +51,8 @@ header {
    width: 40px;
 }
 .logo img {
-   height: 4rem;
-   width: 4rem;
+   height: 40px;
+   width: 40px;
 }
 .meinMenuWrap {
    padding-top: 20%;
@@ -105,12 +106,6 @@ header {
    display: none;
 } */
 
-* {
-	border: 0;
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
 :root {
 	--fg: #17181c;
 	--shade1: #727274;
