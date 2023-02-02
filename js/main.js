@@ -68,9 +68,12 @@ function tableRendering(data) {
 
       duties.forEach((element) => {
          let guard = "";
-         element.guard.forEach((el) => {
-            guard += "<br>";
+         element.guard.forEach((el, index, array) => {
+            guard += " ";
             guard += el.split(" ")[0];
+            if (index != (array.length - 1)) {
+               guard += "<br>";
+            }
          });
          let rowTemplate = `  
          <div class="tRow df">
