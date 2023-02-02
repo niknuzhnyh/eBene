@@ -1,7 +1,9 @@
 const URL = "https://apivarty.azurewebsites.net/api/v1/WorkingShift/";
+const AUTH_URL = "https://apivarty.azurewebsites.net/api/v2/Auth";
+
 // const URL = 'example.json';
 
-let authJWT;
+let authGoogleJWT, accessToken;
 
 // Get today's schedule
 const todayBtn = document.getElementById("todayBtn");
@@ -71,7 +73,7 @@ function tableRendering(data) {
          element.guard.forEach((el, index, array) => {
             guard += " ";
             guard += el.split(" ")[0];
-            if (index != (array.length - 1)) {
+            if (index != array.length - 1) {
                guard += "<br>";
             }
          });
@@ -118,13 +120,29 @@ function hiddenSwitching(visId, hiddId) {
    hidd.classList.toggle("hidden");
 }
 
+// !auth
+
 function handleCredentialResponse(response) {
-   let payload = parseJwt(response.credential);
-   authJWT = response.credential;
+   // let payload = parseJwt(response.credential);
+   authGoogleJWT = response.credential;
+
+   fetch(AUTH_URL, {
+      headers: {
+         code: authGoogleJWT,
+      },
+   })
+      .then((response) => {
+         return response.json();
+      })
+      .then((data) => {
+         let payload = parseJwt(data);
+         console.log(payload);
+      });
+
    hiddenSwitching("singInBtn", "singOutBtn");
-   console.log(response.credential);
-   console.log(payload);
-   console.log(response);
+   // console.log(response.credential);
+   // console.log(payload);
+   // console.log(response);
 }
 
 function parseJwt(token) {
@@ -139,10 +157,10 @@ function parseJwt(token) {
          })
          .join("")
    );
-
    return JSON.parse(jsonPayload);
 }
 
+/////////////
 async function getDateRange() {
    let url =
       "https://apivarty.azurewebsites.net/api/v1/WorkingShift/GetAvailableDates";
