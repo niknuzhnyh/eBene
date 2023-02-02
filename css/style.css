@@ -54,6 +54,9 @@ header {
    height: 40px;
    width: 40px;
 }
+.slogan{
+	padding: 0 20px;
+}
 .meinMenuWrap {
    padding-top: 20%;
 }

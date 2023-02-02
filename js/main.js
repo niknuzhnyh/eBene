@@ -69,7 +69,7 @@ function tableRendering(data) {
       duties.forEach((element) => {
          let guard = "";
          element.guard.forEach((el) => {
-            guard += " ";
+            guard += "<br>";
             guard += el.split(" ")[0];
          });
          let rowTemplate = `  
