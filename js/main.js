@@ -6,7 +6,7 @@ let authJWT;
 // Get today's schedule
 const todayBtn = document.getElementById("todayBtn");
 todayBtn.onclick = () => {
-   hiddenSwitching("startPage", "schedule");
+   hiddenSwitching("startPage", "preloaderSec");
    getSchedule();
 };
 
@@ -29,7 +29,7 @@ document.getElementById("byDateBtn").onclick = () => {
    hiddenSwitching("startPage", "dateInpt");
 };
 document.getElementById("datePickerBtn").onclick = () => {
-   hiddenSwitching("dateInpt", "schedule");
+   hiddenSwitching("dateInpt", "preloaderSec");
    let datePicker = document.getElementById("datePicker");
    getSchedule(datePicker.value);
 };
@@ -49,6 +49,9 @@ function getSchedule(params) {
       })
       .then((data) => {
          tableRendering(data);
+         setTimeout(() => {
+            hiddenSwitching("preloaderSec", "schedule");
+         }, 1000);
       });
 }
 
