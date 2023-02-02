@@ -1,4 +1,4 @@
-const URL = "https://apivarty.azurewebsites.net/api/v1/WorkingShift/";
+const URL = "https://apivarty.azurewebsites.net/api/v2/Schedule/GetSecuritySchedule?date=";
 const AUTH_URL = "https://apivarty.azurewebsites.net/api/v2/Auth";
 
 // const URL = 'example.json';
