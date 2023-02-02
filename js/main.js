@@ -136,7 +136,7 @@ function handleCredentialResponse(response) {
       })
       .then((data) => {
          // let payload = parseJwt(data);
-         console.log(data);
+         console.log(data.token.slogan);
       });
 
    hiddenSwitching("singInBtn", "singOutBtn");
