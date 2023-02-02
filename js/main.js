@@ -135,8 +135,8 @@ function handleCredentialResponse(response) {
          return response.json();
       })
       .then((data) => {
-         // let payload = parseJwt(data);
-         console.log(data.token.slogan);
+         let slogan = data.token.slogan;
+         document.getElementById('sloganInner').innerText = slogan;
       });
 
    hiddenSwitching("singInBtn", "singOutBtn");
