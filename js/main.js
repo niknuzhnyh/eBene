@@ -3,14 +3,7 @@ const AUTH_URL = "https://apivarty.azurewebsites.net/api/v2/Auth";
 
 // const URL = 'example.json';
 
-let authGoogleJWT, accessToken;
-
-let headers = {
-   headers: {
-      Authorization: `Bearer ${accessToken}`
-   },
-}
-
+let authGoogleJWT, accessToken, headers;
 
 
 // Get today's schedule
@@ -147,6 +140,11 @@ function handleCredentialResponse(response) {
          accessToken = data.token.accessToken;
          document.getElementById('sloganInner').innerText = slogan;
          console.log(data);
+         headers = {
+            headers: {
+               Authorization: `Bearer ${accessToken}`
+            },
+         }
          console.log(headers);
       });
 
