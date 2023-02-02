@@ -25,19 +25,19 @@ const singOutBtn = document
    });
 
 // get schedule by date
-document.getElementById('byDateBtn').onclick = () => {
+document.getElementById("byDateBtn").onclick = () => {
    hiddenSwitching("startPage", "dateInpt");
-}
-document.getElementById('datePickerBtn').onclick = () => {
+};
+document.getElementById("datePickerBtn").onclick = () => {
    hiddenSwitching("dateInpt", "schedule");
-   let datePicker = document.getElementById("datePicker")
-   getSchedule(datePicker.value)
-}
-
+   let datePicker = document.getElementById("datePicker");
+   getSchedule(datePicker.value);
+};
 
 function getSchedule(params) {
    let url = URL;
    let date = new Date().toISOString();
+   tableRendering()
    if (params) {
       url = `${URL}${params}`;
    } else {
@@ -53,32 +53,39 @@ function getSchedule(params) {
 }
 
 function tableRendering(data) {
-   let dateFrom = dateFormta(data.dateFrom);
-   let dateTo = dateFormta(data.dateTo);
-   let duties = data.duties;
-   renderData("dateFrom", dateFrom);
-   renderData("dateTo", dateTo);
-   renderData("chief", data.сhief);
+   if (data) {
+      let dateFrom = dateFormta(data.dateFrom);
+      let dateTo = dateFormta(data.dateTo);
+      let duties = data.duties;
+      renderData("dateFrom", dateFrom);
+      renderData("dateTo", dateTo);
+      renderData("chief", data.сhief);
 
-   document.getElementById("tableBody").innerHTML = "";
+      document.getElementById("tableBody").innerHTML = "";
 
-   duties.forEach((element) => {
-      let guard = "";
-      element.guard.forEach((el) => {
-         guard += " ";
-         guard += el.split(" ")[0];
+      duties.forEach((element) => {
+         let guard = "";
+         element.guard.forEach((el) => {
+            guard += " ";
+            guard += el.split(" ")[0];
+         });
+         let rowTemplate = `  
+         <div class="tRow df">
+            <div class="rowTimeDesc rowItem">
+               ${element.period}
+            </div>
+            <div class="rowGuardDesc rowItem">
+               ${guard}
+            </div>
+         </div>`;
+         document.getElementById("tableBody").innerHTML += rowTemplate;
       });
-      let rowTemplate = `  
-      <div class="tRow df">
-         <div class="rowTimeDesc rowItem">
-            ${element.period}
-         </div>
-         <div class="rowGuardDesc rowItem">
-            ${guard}
-         </div>
-      </div>`;
-      document.getElementById("tableBody").innerHTML += rowTemplate;
-   });
+   } else {
+      renderData("dateFrom", '');
+      renderData("dateTo", '');
+      renderData("chief", '');
+      renderData("tableBody", '');
+   }
 }
 
 function renderData(id, data) {
@@ -156,6 +163,5 @@ async function getDateRange() {
 }
 
 getDateRange();
-
 
 console.log("ok");
