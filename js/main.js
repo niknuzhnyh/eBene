@@ -46,7 +46,7 @@ function getSchedule(params) {
    } else {
       url = `${URL}${date}`;
    }
-   fetch(url)
+   fetch(url, headers)
       .then((response) => {
          return response.json();
       })
@@ -124,7 +124,6 @@ function hiddenSwitching(visId, hiddId) {
 // !auth
 
 function handleCredentialResponse(response) {
-   // let payload = parseJwt(response.credential);
    authGoogleJWT = response.credential;
 
    fetch(AUTH_URL, {
@@ -145,13 +144,9 @@ function handleCredentialResponse(response) {
                Authorization: `Bearer ${accessToken}`
             },
          }
-         console.log(headers);
       });
-
-   hiddenSwitching("singInBtn", "singOutBtn");
-   // console.log(response.credential);
-   // console.log(payload);
-   // console.log(response);
+      getDateRange();
+      hiddenSwitching("singInBtn", "singOutBtn");
 }
 
 function parseJwt(token) {
@@ -172,11 +167,11 @@ function parseJwt(token) {
 /////////////
 async function getDateRange() {
    let url =
-      "https://apivarty.azurewebsites.net/api/v1/WorkingShift/GetAvailableDates";
+      "https://apivarty.azurewebsites.net/api/v2/Schedule/GetAvailableDates";
    let minDate;
    let maxDate;
    let dateRange = {};
-   fetch(url)
+   fetch(url, headers)
       .then((response) => {
          return response.json();
       })
@@ -194,11 +189,5 @@ async function getDateRange() {
          datePicker.max = maxDate;
       });
 }
-
-getDateRange();
-
-setTimeout(() => {
-   console.log(headers);
-}, 15000);
 
 console.log("ok");
