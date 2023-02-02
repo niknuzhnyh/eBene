@@ -7,20 +7,20 @@ body {
    padding: 15px;
    min-height: 100vh;
 }
-input{
+input {
    font-weight: 900;
    width: 50%;
    margin: 0 auto;
-   padding: .5rem 1rem;
+   padding: 0.5rem 1rem;
    border-radius: 1rem;
 }
-label{
+label {
    display: block;
    font-size: 1.2rem;
    font-weight: bold;
    margin-bottom: 1rem;
 }
-button{
+button {
    display: block;
 }
 
@@ -30,22 +30,22 @@ button{
 .df {
    display: flex;
 }
-.container{
+.container {
    width: 100%;
    max-width: 1100px;
    margin: 2rem auto;
 }
-.tac{
+.tac {
    text-align: center;
 }
-.aic{
+.aic {
    align-items: center;
 }
 
 header {
    justify-content: space-between;
 }
-.g_id_signout img{
+.g_id_signout img {
    height: 40px;
    width: 40px;
 }
@@ -53,56 +53,51 @@ header {
    height: 4rem;
    width: 4rem;
 }
-.bmenu a{
-   display: block;
-   text-decoration: none;
-   color:#fff;
-}
-.meinMenuWrap{
+.meinMenuWrap {
    padding-top: 20%;
 }
-.meinMenuWrap p{
+.meinMenuWrap p {
    margin-top: 20px;
    padding: 15px;
 }
-.bmenu{
+.bmenu {
    color: #fff;
    font-weight: 900;
-   max-width: 50%;
+   width: 50%;
    margin: 20px auto;
-   padding: .5rem 1rem;
+   padding: 0.5rem 1rem;
    border-radius: 1.2rem;
    background-color: #000;
 }
-.scheduleWrap{
+.scheduleWrap {
    width: 100%;
    min-height: 70vh;
 }
-.tRow{
+.tRow {
    width: 100%;
    border: #000 1px solid;
    min-height: 2rem;
    padding: 0 0.5rem;
 }
-.tRow:not(:first-child){
+.tRow:not(:first-child) {
    border-top: none;
 }
-.rowItem{
+.rowItem {
    line-height: 2rem;
    width: 50%;
 }
 .rowTimeDesc,
-.rowChiefDesc{
+.rowChiefDesc {
    border-right: #000 1px solid;
 }
 .rowChief,
-.rowGuardDesc{
+.rowGuardDesc {
    flex-grow: 1;
 }
-.preloaderWrap{
+.preloaderWrap {
    padding-top: 40vh;
 }
-.dateInptWrap{
+.dateInptWrap {
    padding-top: 25vh;
 }
 

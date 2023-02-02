@@ -37,7 +37,7 @@ document.getElementById("datePickerBtn").onclick = () => {
 function getSchedule(params) {
    let url = URL;
    let date = new Date().toISOString();
-   tableRendering()
+   tableRendering();
    if (params) {
       url = `${URL}${params}`;
    } else {
@@ -81,10 +81,10 @@ function tableRendering(data) {
          document.getElementById("tableBody").innerHTML += rowTemplate;
       });
    } else {
-      renderData("dateFrom", '');
-      renderData("dateTo", '');
-      renderData("chief", '');
-      renderData("tableBody", '');
+      renderData("dateFrom", "");
+      renderData("dateTo", "");
+      renderData("chief", "");
+      renderData("tableBody", "");
    }
 }
 
