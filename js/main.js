@@ -5,7 +5,6 @@ const AUTH_URL = "https://apivarty.azurewebsites.net/api/v2/Auth";
 
 let authGoogleJWT, accessToken, headers;
 
-
 // Get today's schedule
 const todayBtn = document.getElementById("todayBtn");
 todayBtn.onclick = () => {
@@ -137,16 +136,16 @@ function handleCredentialResponse(response) {
       .then((data) => {
          let slogan = data.token.slogan;
          accessToken = data.token.accessToken;
-         document.getElementById('sloganInner').innerText = slogan;
+         document.getElementById("sloganInner").innerText = slogan;
          console.log(data);
          headers = {
             headers: {
-               Authorization: `Bearer ${accessToken}`
+               Authorization: `Bearer ${accessToken}`,
             },
-         }
+         };
+         getDateRange();
       });
-      getDateRange();
-      hiddenSwitching("singInBtn", "singOutBtn");
+   hiddenSwitching("singInBtn", "singOutBtn");
 }
 
 function parseJwt(token) {
