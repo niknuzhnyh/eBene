@@ -197,4 +197,8 @@ async function getDateRange() {
 
 getDateRange();
 
+setTimeout(() => {
+   console.log(headers);
+}, 15000);
+
 console.log("ok");
