@@ -137,6 +137,7 @@ function handleCredentialResponse(response) {
       .then((data) => {
          let slogan = data.token.slogan;
          document.getElementById('sloganInner').innerText = slogan;
+         console.log(data);
       });
 
    hiddenSwitching("singInBtn", "singOutBtn");
