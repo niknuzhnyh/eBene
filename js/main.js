@@ -65,7 +65,7 @@ function tableRendering(data) {
       let duties = data.duties;
       renderData("dateFrom", dateFrom);
       renderData("dateTo", dateTo);
-      renderData("chief", data.сhief);
+      renderData("chief", data.chief);
 
       document.getElementById("tableBody").innerHTML = "";
 
