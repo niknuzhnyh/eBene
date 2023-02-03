@@ -1,4 +1,5 @@
-const URL = "https://apivarty.azurewebsites.net/api/v2/Schedule/GetSecuritySchedule?date=";
+const URL =
+   "https://apivarty.azurewebsites.net/api/v2/Schedule/GetSecuritySchedule?date=";
 const AUTH_URL = "https://apivarty.azurewebsites.net/api/v2/Auth";
 
 // const URL = 'example.json';
@@ -55,6 +56,9 @@ function getSchedule(params) {
          setTimeout(() => {
             hiddenSwitching("preloaderSec", "schedule");
          }, 1000);
+      })
+      .catch((e) => {
+         console.log("Error: getSchedule");
       });
 }
 
@@ -147,8 +151,11 @@ function handleCredentialResponse(response) {
          getDateRange();
          todayBtn.disabled = false;
          byDateBtn.disabled = false;
+         hiddenSwitching("singInBtn", "singOutBtn");
+      })
+      .catch((e) => {
+         console.log("Error: !auth");
       });
-   hiddenSwitching("singInBtn", "singOutBtn");
 }
 
 function parseJwt(token) {
@@ -189,6 +196,9 @@ async function getDateRange() {
          datePicker.value = new Date().toISOString().split("T")[0];
          datePicker.min = minDate;
          datePicker.max = maxDate;
+      })
+      .catch((e) => {
+         console.log("Error: getDateRange");
       });
 }
 
