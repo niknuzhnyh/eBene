@@ -128,6 +128,8 @@ function hiddenSwitching(visId, hiddId) {
 // !auth
 
 function handleCredentialResponse(response) {
+   console.log(response);
+
    authGoogleJWT = response.credential;
 
    fetch(AUTH_URL, {
