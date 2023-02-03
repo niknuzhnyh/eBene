@@ -73,6 +73,10 @@ header {
    border-radius: 1.2rem;
    background-color: #000;
 }
+.bmenu:disabled {
+   color: #dadada;
+   background-color: #3c3c3c;
+}
 .scheduleWrap {
    width: 100%;
    min-height: 70vh;

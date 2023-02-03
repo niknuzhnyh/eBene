@@ -27,7 +27,8 @@ const singOutBtn = document
    });
 
 // get schedule by date
-document.getElementById("byDateBtn").onclick = () => {
+const byDateBtn = document.getElementById("byDateBtn");
+byDateBtn.onclick = () => {
    hiddenSwitching("startPage", "dateInpt");
 };
 document.getElementById("datePickerBtn").onclick = () => {
@@ -144,6 +145,8 @@ function handleCredentialResponse(response) {
             },
          };
          getDateRange();
+         todayBtn.disabled = false;
+         byDateBtn.disabled = false;
       });
    hiddenSwitching("singInBtn", "singOutBtn");
 }
