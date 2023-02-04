@@ -91,25 +91,24 @@ function getSchedule(params) {
 
 function tableRendering(type, table, data) {
     if (data) {
-        document.getElementById(table).innerHTML = "";
+        var pageHeaderHtml =
+            `<h2>Розклад з <span id="dateFrom">${dateFormta(data.dateFrom)}</span> по <span id="dateTo">${dateFormta(data.dateTo)}</span></h2>` 
+        document.getElementById(table).innerHTML = pageHeaderHtml;
 
         switch (type) {
             case "dutyShift":
-                var headerHtml =
-                    `<h2>Склад варти з <span id="dateFrom">${dateFormta(data.dateFrom)}</span> по <span id="dateTo">${dateFormta(data.dateTo)}</span></h2>` 
-                document.getElementById(table).innerHTML += headerHtml;
-
                 renderPart(table, "Черговий", data.chief);
                 renderPart(table, "Днювальний (охорона)", data.dutySecurity);
                 renderPart(table, "Днювальний (прибирання)", data.dutyCleaning);
                 renderPart(table, "Черговий по кухні", data.dutyKitchen);
+
+                renderPartOneColumn(table, "В розташуванні", data.atBase)
                 
                 break;
 
            case "securityShift":
                 var headerHtml =
-                    `<h2>Склад варти з <span id="dateFrom">${dateFormta(data.dateFrom)}</span> по <span id="dateTo">${dateFormta(data.dateTo) }</span></h2>
-					<div class="tableWrap" id="tableWrap">
+                    `<div class="tableWrap" id="tableWrap">
 						<div id="tableBody">`
 
                 var chiefHtml = 
@@ -130,7 +129,7 @@ function tableRendering(type, table, data) {
 							</div>
 						</div>`
 
-                document.getElementById(table).innerHTML = headerHtml + chiefHtml;
+                document.getElementById(table).innerHTML += headerHtml + chiefHtml;
 
                 data.duties.forEach((element) => {
                     let guard = "";
@@ -161,6 +160,8 @@ function tableRendering(type, table, data) {
                 break;
 
             case "vacationShift":
+                renderPartOneColumn(table, "В резерві", data.reserve)
+                renderPartOneColumn(table, "Відпустка", data.onVacation)
                 break;
         }
 
@@ -208,16 +209,49 @@ function renderPart(table, header, data) {
     document.getElementById(table).innerHTML += footerHtml;
 }
 
+function renderPartOneColumn(table, header, data) {
+    var headerHtml =
+        `<h2>${header}</h2>
+        <div class="tableWrap" id="tableWrap">
+		<div id="tableBody">
+            <div class="tRow df">
+				<div class="rowGuardDesc rowItem">
+					ПІБ
+				</div>
+			</div>`
+    document.getElementById(table).innerHTML += headerHtml;
+
+    data.forEach((element) => {
+        let rowTemplate = `  
+                     <div class="tRow df">
+                        <div class="rowGuardDesc rowItem">
+                           ${element}
+                        </div>
+                     </div>`;
+
+        document.getElementById(table).innerHTML += rowTemplate;
+    });
+
+    var footerHtml =
+        `       </div>
+        </div>`
+    document.getElementById(table).innerHTML += footerHtml;
+}
+
 function renderData(id, data) {
    let item = document.getElementById(`${id}`);
    item.innerText = data;
 }
 
 function dateFormta(date) {
-   let d = new Intl.DateTimeFormat("ua", {
+   let d = new Intl.DateTimeFormat("uk-UA", {
       year: "numeric",
-      month: "numeric",
-      day: "numeric",
+       month: "long",
+       day: "2-digit",
+       hour: "2-digit",
+       minute: "2-digit",
+       hour12: false,
+
    });
    date = Date.parse(date);
    date = d.format(date);
