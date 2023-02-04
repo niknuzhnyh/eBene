@@ -20,11 +20,11 @@ for (const el of scheduleBtns) {
       scheduleBtn = el.dataset.responsibility
       console.log(scheduleBtn)
       console.log(testData[scheduleBtn])
-      tableRendering(testData[scheduleBtn])
+       tableRendering(scheduleBtn, "scheduleBody", testData[scheduleBtn])
    }
 }
 
-fetch('response_1675483498008.json')
+fetch('response_1675509816481.json')
    .then((response) => {
       return response.json();
    })
@@ -89,43 +89,123 @@ function getSchedule(params) {
       });
 }
 
-function tableRendering(data) {
-   if (data) {
-      let dateFrom = dateFormta(data.dateFrom);
-      let dateTo = dateFormta(data.dateTo);
-      let duties = data.duties;
-      renderData("dateFrom", dateFrom);
-      renderData("dateTo", dateTo);
-      renderData("chief", data.chief);
+function tableRendering(type, table, data) {
+    if (data) {
+        document.getElementById(table).innerHTML = "";
 
-      document.getElementById("tableBody").innerHTML = "";
+        switch (type) {
+            case "dutyShift":
+                var headerHtml =
+                    `<h2>Склад варти з <span id="dateFrom">${dateFormta(data.dateFrom)}</span> по <span id="dateTo">${dateFormta(data.dateTo)}</span></h2>` 
+                document.getElementById(table).innerHTML += headerHtml;
 
-      duties.forEach((element) => {
-         let guard = "";
-         element.guard.forEach((el, index, array) => {
-            guard += " ";
-            guard += el.split(" ")[0];
-            if (index != array.length - 1) {
-               guard += "<br>";
-            }
-         });
-         let rowTemplate = `  
-         <div class="tRow df">
-            <div class="rowTimeDesc rowItem">
-               ${element.period}
-            </div>
-            <div class="rowGuardDesc rowItem">
-               ${guard}
-            </div>
-         </div>`;
-         document.getElementById("tableBody").innerHTML += rowTemplate;
-      });
-   } else {
-      renderData("dateFrom", "");
-      renderData("dateTo", "");
-      renderData("chief", "");
-      renderData("tableBody", "");
-   }
+                renderPart(table, "Черговий", data.chief);
+                renderPart(table, "Днювальний (охорона)", data.dutySecurity);
+                renderPart(table, "Днювальний (прибирання)", data.dutyCleaning);
+                renderPart(table, "Черговий по кухні", data.dutyKitchen);
+                
+                break;
+
+           case "securityShift":
+                var headerHtml =
+                    `<h2>Склад варти з <span id="dateFrom">${dateFormta(data.dateFrom)}</span> по <span id="dateTo">${dateFormta(data.dateTo) }</span></h2>
+					<div class="tableWrap" id="tableWrap">
+						<div id="tableBody">`
+
+                var chiefHtml = 
+                    `   <div class="tRow df" >
+							<div class="rowItem rowChiefDesc" id="chiefPos">
+								Начальник варти
+							</div>
+							<div class="rowItem rowChief" id="chief">
+								${data.chief}
+							</div>
+						</div>
+						<div class="tRow df">
+							<div class="rowTimeDesc rowItem">
+								Час варти
+							</div>
+							<div class="rowGuardDesc rowItem">
+								Вартові
+							</div>
+						</div>`
+
+                document.getElementById(table).innerHTML = headerHtml + chiefHtml;
+
+                data.duties.forEach((element) => {
+                    let guard = "";
+                    element.guard.forEach((el, index, array) => {
+                        guard += " ";
+                        guard += el.split(" ")[0];
+                        if (index != array.length - 1) {
+                            guard += "<br>";
+                        }
+                    });
+                    let rowTemplate = `  
+                     <div class="tRow df">
+                        <div class="rowTimeDesc rowItem">
+                           ${element.period}
+                        </div>
+                        <div class="rowGuardDesc rowItem">
+                           ${guard}
+                        </div>
+                     </div>`;
+
+                    document.getElementById(table).innerHTML += rowTemplate;
+                });
+
+                var footerHtml =
+                    `       </div>
+					     </div>`
+                document.getElementById(table).innerHTML += footerHtml;
+                break;
+
+            case "vacationShift":
+                break;
+        }
+
+
+    } else {
+        renderData("dateFrom", "");
+        renderData("dateTo", "");
+        renderData("chief", "");
+        renderData(table, "");
+    }
+}
+
+function renderPart(table, header, data) {
+    var headerHtml =
+        `<h2>${header}</h2>
+            <div class="tableWrap" id="tableWrap">
+			<div id="tableBody">
+                <div class="tRow df">
+					<div class="rowTimeDesc rowItem">
+						Час
+					</div>
+					<div class="rowGuardDesc rowItem">
+						ПІБ
+					</div>
+				</div>`
+    document.getElementById(table).innerHTML += headerHtml;
+
+    data.forEach((element) => {
+        let rowTemplate = `  
+                     <div class="tRow df">
+                        <div class="rowTimeDesc rowItem">
+                           ${element.period}
+                        </div>
+                        <div class="rowGuardDesc rowItem">
+                           ${element.person}
+                        </div>
+                     </div>`;
+
+        document.getElementById(table).innerHTML += rowTemplate;
+    });
+
+    var footerHtml =
+        `       </div>
+            </div>`
+    document.getElementById(table).innerHTML += footerHtml;
 }
 
 function renderData(id, data) {
