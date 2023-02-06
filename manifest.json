@@ -5,8 +5,8 @@
    "background_color": "#cccdd1",
    "display": "fullScreen",
    "orientation": "portrait",
-   "scope": "https://niknuzhnyh.github.io/eBene/",
-   "start_url": "https://niknuzhnyh.github.io/eBene/",
+   "scope": "/",
+   "start_url": ".",
    "icons": [
       {
          "src": "images/icons/icon-72x72.png",
