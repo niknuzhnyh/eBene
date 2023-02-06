@@ -39,12 +39,20 @@ button {
 .tac {
    text-align: center;
 }
+.jcsb {
+	justify-content: space-between;
+}
+
+.jcsa {
+	justify-content: space-around;
+}
+
 .aic {
-   align-items: center;
+	align-items: center;
 }
 
 header {
-   justify-content: space-between;
+	justify-content: space-between;
 }
 .g_id_signout img {
    height: 40px;
@@ -81,6 +89,17 @@ header {
    width: 100%;
    min-height: 70vh;
 }
+.scheduleIconBtn {
+	padding: 0.3rem;
+	background-color: #fafafa;
+	border-radius: 0.9rem;
+}
+
+.scheduleIcon {
+	height: 3.5rem;
+	width: 3.5rem;
+}
+
 .tRow {
    width: 100%;
    border: #000 1px solid;
