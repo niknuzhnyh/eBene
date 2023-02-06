@@ -149,9 +149,10 @@ function tableRendering(type, table, data, currentUser) {
                     element.guard.forEach((el, index, array) => {
                         var isCurrent = el === currentUser;
                         guard += " ";
-                        if (isCurrent) { guard += "<em><strong>"; }                       
+
+                        if (isCurrent) { guard += "<marquee behavior='alternate'><em><strong>"; }                       
                         guard += el.split(" ")[0];
-                        if (isCurrent) { guard += "</strong></em>"; }                       
+                        if (isCurrent) { guard += "</strong></em></marquee>"; }                       
                         if (index != array.length - 1) {
                             guard += "<br>";
                         }
@@ -200,7 +201,10 @@ function renderPart(table, header, data, currentUser) {
 
     data.forEach((element) => {
         var addClass = "";
-        if (element.person === currentUser) addClass = " currentUser";
+        if (element.person === currentUser) {
+            addClass = " currentUser";
+            element.person = `<marquee behavior='alternate'>${element.person}</marquee>`;
+        }
 
         var rowTemplate = `  
                      <div class="tRow df">
@@ -233,7 +237,10 @@ function renderPartOneColumn(table, header, data, currentUser) {
 
     data.forEach((element) => {
         var addClass = "";
-        if (element === currentUser) addClass = " currentUser";
+        if (element === currentUser) {
+            addClass = " currentUser";
+            element = `<marquee behavior='alternate'>${element}</marquee>`;
+        }
 
         var rowTemplate = `  
                      <div class="tRow df">
