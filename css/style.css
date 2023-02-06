@@ -39,6 +39,11 @@ button {
 	text-orientation: mixed;
 }
 
+.currentUser {
+	font-style: italic;
+	font-weight: bolder;
+}
+
 .df {
 	display: flex;
 }
