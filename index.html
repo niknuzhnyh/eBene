@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4285f4" />
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
     <title>Є БЕНЕ</title>
     <script src="js/swiped-events.js"></script>
 </head>
@@ -22,21 +25,21 @@
             </p>
         </div>
         <div class="login">
-           <div id="singInBtn" class="singInBtn">
-              <div id="g_id_onload"
-                 data-client_id="426438892031-hl14rgfb10fvk1u0e66j13b79qot03v6.apps.googleusercontent.com"
-                 data-context="signin" data-ux_mode="popup" data-auto_select="true"
-                 data-callback="handleCredentialResponse" data-itp_support="true">
-              </div>
-              <div class="g_id_signin" data-type="icon" data-shape="square" data-theme="filled_black"
-                 data-text="signin_with" data-size="large" data-locale="uk">
-              </div>
-           </div>
-           <div id="singOutBtn" class="singOutBtn hidden">
-              <div class="g_id_signout">
-                 <img src="images/pngwing.com.png" alt="sign out">
-              </div>
-           </div>
+            <div id="singInBtn" class="singInBtn">
+                <div id="g_id_onload"
+                    data-client_id="426438892031-hl14rgfb10fvk1u0e66j13b79qot03v6.apps.googleusercontent.com"
+                    data-context="signin" data-ux_mode="popup" data-auto_select="true"
+                    data-callback="handleCredentialResponse" data-itp_support="true">
+                </div>
+                <div class="g_id_signin" data-type="icon" data-shape="square" data-theme="filled_black"
+                    data-text="signin_with" data-size="large" data-locale="uk">
+                </div>
+            </div>
+            <div id="singOutBtn" class="singOutBtn hidden">
+                <div class="g_id_signout">
+                    <img src="images/pngwing.com.png" alt="sign out">
+                </div>
+            </div>
         </div>
     </header>
 
@@ -55,9 +58,12 @@
         <div class="scheduleWrap df aic">
             <div class="container tac">
                 <div class="scheduleBtns df jcsa" id="scheduleBtns">
-                    <div class="scheduleIconBtn" data-responsibility='securityShift'><img class="scheduleIcon" src="images/bridge (2).png" alt=""></div>
-                    <div class="scheduleIconBtn" data-responsibility='dutyShift'><img class="scheduleIcon" src="images/home (3).png" alt=""></div>
-                    <div class="scheduleIconBtn" data-responsibility='vacationShift'><img class="scheduleIcon" src="images/car (1).png" alt=""></div>
+                    <div class="scheduleIconBtn" data-responsibility='securityShift'><img class="scheduleIcon"
+                            src="images/bridge (2).png" alt=""></div>
+                    <div class="scheduleIconBtn" data-responsibility='dutyShift'><img class="scheduleIcon"
+                            src="images/home (3).png" alt=""></div>
+                    <div class="scheduleIconBtn" data-responsibility='vacationShift'><img class="scheduleIcon"
+                            src="images/car (1).png" alt=""></div>
                 </div>
                 <div class="scheduleDataContainer">
                     <div class="scheduleDataPrevNext hidden"></div>
@@ -79,7 +85,8 @@
                 <div class="preloader__square"></div>
             </div>
             <div class="status">
-                Loading<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span>
+                Loading<span class="status__dot">.</span><span class="status__dot">.</span><span
+                    class="status__dot">.</span>
             </div>
         </preloader>
     </section>
