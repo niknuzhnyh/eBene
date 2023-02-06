@@ -31,8 +31,6 @@ document.addEventListener('swiped-right', function (e) {
 for (const el of scheduleBtns) {
    el.onclick = () => {
       scheduleBtn = el.dataset.responsibility;
-      console.log(scheduleBtn);
-      console.log(apiData[scheduleBtn]);
       tableRendering(scheduleBtn, "scheduleBody", apiData[scheduleBtn]);
    };
 }
@@ -46,6 +44,7 @@ todayBtn.onclick = () => {
 // go out to schedule
 const schedulePrev = document.getElementById("schedulePrev");
 schedulePrev.onclick = () => {
+    requestedDate = undefined;
     reorderHidden(["startPage"], ["schedule"]);
 };
 
@@ -87,7 +86,10 @@ function getSchedule(params) {
         })
         .then((data) => {
             apiData = data;
-            tableRendering("securityShift", "scheduleBody", data["securityShift"]);
+            if (scheduleBtn == undefined) {
+                scheduleBtn = "securityShift";
+            }
+            tableRendering(scheduleBtn, "scheduleBody", data[scheduleBtn]);
         //    setTimeout(() => {
         //        hiddenSwitching("preloaderSec", "schedule");
         //    }, 1000);
