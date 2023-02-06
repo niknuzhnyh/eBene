@@ -28,8 +28,19 @@ button {
 .hidden {
    display: none;
 }
+
+.scheduleDataContainer {
+	display: flex;
+	align-items: stretch;
+}
+.scheduleDataPrevNext {
+	width: 5%;
+	writing-mode: vertical-lr;
+	text-orientation: mixed;
+}
+
 .df {
-   display: flex;
+	display: flex;
 }
 .container {
    width: 100%;

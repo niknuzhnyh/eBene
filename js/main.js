@@ -8,8 +8,25 @@ let authGoogleJWT, accessToken, headers;
 // schedule selection
 let scheduleBtns = document.getElementsByClassName('scheduleIconBtn')
 let scheduleBtn;
+let requestedDate;
 let apiData;
 
+document.addEventListener('swiped-left', function (e) {
+    if (requestedDate) {
+        var date = new Date(requestedDate);
+        date.setDate(date.getDate() + 1);
+
+        getSchedule(date.toISOString());
+    }
+});
+document.addEventListener('swiped-right', function (e) {
+    if (requestedDate) {
+        var date = new Date(requestedDate);
+        date.setDate(date.getDate() - 1);
+
+        getSchedule(date.toISOString());
+    }
+});
 
 for (const el of scheduleBtns) {
     el.onclick = () => {
@@ -22,31 +39,31 @@ for (const el of scheduleBtns) {
 // Get today's schedule
 const todayBtn = document.getElementById("todayBtn");
 todayBtn.onclick = () => {
-    hiddenSwitching("startPage", "preloaderSec");
+    reorderHidden(["preloaderSec"], ["startPage"]);
     getSchedule();
 };
 
 // go out to schedule
 const schedulePrev = document.getElementById("schedulePrev");
 schedulePrev.onclick = () => {
-    hiddenSwitching("schedule", "startPage");
+    reorderHidden(["startPage"], ["schedule"]);
 };
 
 // !sign out
- const singOutBtn = document
+const singOutBtn = document
     .getElementById("singOutBtn")
     .addEventListener("click", () => {
-       authJWT = "";
-       hiddenSwitching("singInBtn", "singOutBtn");
+        authJWT = "";
+        reorderHidden(["singInBtn"], ["singOutBtn"]);
     });
 
 // get schedule by date
 const byDateBtn = document.getElementById("byDateBtn");
 byDateBtn.onclick = () => {
-    hiddenSwitching("startPage", "dateInpt");
+    reorderHidden(["dateInpt"], ["startPage"]);
 };
 document.getElementById("datePickerBtn").onclick = () => {
-    hiddenSwitching("dateInpt", "preloaderSec");
+    reorderHidden(["preloaderSec"], ["dateInpt"]);
     let datePicker = document.getElementById("datePicker");
     getSchedule(datePicker.value);
 };
@@ -56,10 +73,14 @@ function getSchedule(params) {
     let date = new Date().toISOString();
     tableRendering(undefined, "scheduleBody", undefined);
     if (params) {
+        requestedDate = params;
         url = `${URL}${params}`;
     } else {
+        requestedDate = date;
         url = `${URL}${date}`;
     }
+
+    reorderHidden(["preloaderSec"], ["schedule"]);
     fetch(url, headers)
         .then((response) => {
             return response.json();
@@ -67,11 +88,15 @@ function getSchedule(params) {
         .then((data) => {
             apiData = data;
             tableRendering("securityShift", "scheduleBody", data["securityShift"]);
-            setTimeout(() => {
-                hiddenSwitching("preloaderSec", "schedule");
-            }, 1000);
+        //    setTimeout(() => {
+        //        hiddenSwitching("preloaderSec", "schedule");
+        //    }, 1000);
+        })
+        .then(() => {
+            reorderHidden(["schedule"], ["preloaderSec"]);
         })
         .catch((e) => {
+            reorderHidden(["schedule"], ["preloaderSec"]);
             console.log("Error: getSchedule");
         });
 }
@@ -248,6 +273,18 @@ function hiddenSwitching(visId, hiddId) {
 
     vis.classList.toggle("hidden");
     hidd.classList.toggle("hidden");
+}
+
+function reorderHidden(visibleIds, hiddenIds) {
+    visibleIds.forEach((elem) => {
+        var element = document.getElementById(elem);
+        element.classList.remove("hidden");
+    });
+    hiddenIds.forEach((elem) => {
+        var element = document.getElementById(elem);
+        element.classList.remove("hidden");
+        element.classList.add("hidden");
+    });
 }
 
 // !auth
