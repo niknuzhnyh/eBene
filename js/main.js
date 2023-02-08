@@ -11,121 +11,157 @@ let scheduleBtn;
 let requestedDate;
 let apiData;
 
-document.addEventListener('swiped-left', function (e) {
-    if (requestedDate) {
-        var date = new Date(requestedDate);
-        date.setDate(date.getDate() + 1);
+document.addEventListener("swiped-left", function (e) {
+   if (requestedDate) {
+      var date = new Date(requestedDate);
+      date.setDate(date.getDate() + 1);
 
-        getSchedule(date.toISOString());
-    }
+      getSchedule(date.toISOString());
+   }
 });
-document.addEventListener('swiped-right', function (e) {
-    if (requestedDate) {
-        var date = new Date(requestedDate);
-        date.setDate(date.getDate() - 1);
+document.addEventListener("swiped-right", function (e) {
+   if (requestedDate) {
+      var date = new Date(requestedDate);
+      date.setDate(date.getDate() - 1);
 
-        getSchedule(date.toISOString());
-    }
+      getSchedule(date.toISOString());
+   }
 });
 
 for (const el of scheduleBtns) {
-    el.onclick = () => {
-        scheduleBtn = el.dataset.responsibility;
-        tableRendering(scheduleBtn, "scheduleBody", apiData[scheduleBtn], apiData.currentUser);
-    };
+   el.onclick = () => {
+      scheduleBtn = el.dataset.responsibility;
+      tableRendering(
+         scheduleBtn,
+         "scheduleBody",
+         apiData[scheduleBtn],
+         apiData.currentUser
+      );
+   };
 }
 // Get today's schedule
 const todayBtn = document.getElementById("todayBtn");
 todayBtn.onclick = () => {
-    reorderHidden(["preloaderSec"], ["startPage"]);
-    getSchedule();
+   reorderHidden(["preloaderSec"], ["startPage"]);
+   getSchedule();
+};
+// get schedule by date
+const byDateBtn = document.getElementById("byDateBtn");
+byDateBtn.onclick = () => {
+   reorderHidden(["dateInpt"], ["startPage"]);
+};
+document.getElementById("datePickerBtn").onclick = () => {
+   reorderHidden(["preloaderSec"], ["dateInpt"]);
+   let datePicker = document.getElementById("datePicker");
+   getSchedule(datePicker.value);
 };
 
 // go out to schedule
 const schedulePrev = document.getElementById("schedulePrev");
 schedulePrev.onclick = () => {
-    requestedDate = undefined;
-    reorderHidden(["startPage"], ["schedule"]);
+   requestedDate = undefined;
+   reorderHidden(["startPage"], ["schedule"]);
 };
 
 // !sign out
 const singOutBtn = document
-    .getElementById("singOutBtn")
-    .addEventListener("click", () => {
-        authJWT = "";
-        reorderHidden(["singInBtn"], ["singOutBtn"]);
-    });
+   .getElementById("singOutBtn")
+   .addEventListener("click", () => {
+      authGoogleJWT = "";
+      accessToken = "";
+      headers = "";
+		reorderHidden(["singInBtn"], ["singOutBtn"]);
+		todayBtn.disabled = true;
+		byDateBtn.disabled = true;
+      reorderHidden(["startPage"], ["schedule"]);
+   });
 
-// get schedule by date
-const byDateBtn = document.getElementById("byDateBtn");
-byDateBtn.onclick = () => {
-    reorderHidden(["dateInpt"], ["startPage"]);
-};
-document.getElementById("datePickerBtn").onclick = () => {
-    reorderHidden(["preloaderSec"], ["dateInpt"]);
-    let datePicker = document.getElementById("datePicker");
-    getSchedule(datePicker.value);
-};
+
 
 function getSchedule(params) {
-    let url = URL;
-    let date = new Date().toISOString();
-    tableRendering(undefined, "scheduleBody", undefined);
-    if (params) {
-        requestedDate = params;
-        url = `${URL}${params}`;
-    } else {
-        requestedDate = date;
-        url = `${URL}${date}`;
-    }
+   let url = URL;
+   let date = new Date().toISOString();
+   tableRendering(undefined, "scheduleBody", undefined);
+   if (params) {
+      requestedDate = params;
+      url = `${URL}${params}`;
+   } else {
+      requestedDate = date;
+      url = `${URL}${date}`;
+   }
 
-    reorderHidden(["preloaderSec"], ["schedule"]);
-    fetch(url, headers)
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            apiData = data;
-            if (scheduleBtn == undefined) {
-                scheduleBtn = "securityShift";
-            }
-            tableRendering(scheduleBtn, "scheduleBody", data[scheduleBtn], data.currentUser);
-        })
-        .then(() => {
-            reorderHidden(["schedule"], ["preloaderSec"]);
-        })
-        .catch((e) => {
-            reorderHidden(["schedule"], ["preloaderSec"]);
-            console.log("Error: getSchedule");
-        });
+   reorderHidden(["preloaderSec"], ["schedule"]);
+   fetch(url, headers)
+      .then((response) => {
+         return response.json();
+      })
+      .then((data) => {
+         apiData = data;
+         if (scheduleBtn == undefined) {
+            scheduleBtn = "securityShift";
+         }
+         tableRendering(
+            scheduleBtn,
+            "scheduleBody",
+            data[scheduleBtn],
+            data.currentUser
+         );
+      })
+      .then(() => {
+         reorderHidden(["schedule"], ["preloaderSec"]);
+      })
+      .catch((e) => {
+         reorderHidden(["schedule"], ["preloaderSec"]);
+         console.log("Error: getSchedule");
+      });
 }
 
 function tableRendering(type, table, data, currentUser) {
-    if (data) {
-        var pageHeaderHtml = `<h2>Розклад з <span id="dateFrom">${dateFormta(
-            data.dateFrom
-        )}</span> по <span id="dateTo">${dateFormta(data.dateTo)}</span></h2>`;
-        document.getElementById(table).innerHTML = pageHeaderHtml;
+   if (data) {
+      var pageHeaderHtml = `<h2>Розклад з <span id="dateFrom">${dateFormta(
+         data.dateFrom
+      )}</span> по <span id="dateTo">${dateFormta(data.dateTo)}</span></h2>`;
+      document.getElementById(table).innerHTML = pageHeaderHtml;
 
-        switch (type) {
-            case "dutyShift":
-                renderPart(table, "Черговий", data.chief, currentUser);
-                renderPart(table, "Днювальний (охорона)", data.dutySecurity, currentUser);
-                renderPart(table, "Днювальний (прибирання)", data.dutyCleaning, currentUser);
-                renderPart(table, "Черговий по кухні", data.dutyKitchen, currentUser);
+      switch (type) {
+         case "dutyShift":
+            renderPart(table, "Черговий", data.chief, currentUser);
+            renderPart(
+               table,
+               "Днювальний (охорона)",
+               data.dutySecurity,
+               currentUser
+            );
+            renderPart(
+               table,
+               "Днювальний (прибирання)",
+               data.dutyCleaning,
+               currentUser
+            );
+            renderPart(
+               table,
+               "Черговий по кухні",
+               data.dutyKitchen,
+               currentUser
+            );
 
-                renderPartOneColumn(table, "В розташуванні", data.atBase, currentUser);
+            renderPartOneColumn(
+               table,
+               "В розташуванні",
+               data.atBase,
+               currentUser
+            );
 
-                break;
+            break;
 
-            case "securityShift":
-                var headerHtml = `<div class="tableWrap" id="tableWrap">
+         case "securityShift":
+            var headerHtml = `<div class="tableWrap" id="tableWrap">
 						<div id="tableBody">`;
 
-                var addClass = "";
-                if (data.chief === currentUser) addClass = " currentUser";
+            var addClass = "";
+            if (data.chief === currentUser) addClass = " currentUser";
 
-                var chiefHtml = `   <div class="tRow df" >
+            var chiefHtml = `   <div class="tRow df" >
 							<div class="rowItem rowChiefDesc" id="chiefPos">
 								Начальник варти
 							</div>
@@ -142,22 +178,26 @@ function tableRendering(type, table, data, currentUser) {
 							</div>
 						</div>`;
 
-                document.getElementById(table).innerHTML += headerHtml + chiefHtml;
+            document.getElementById(table).innerHTML += headerHtml + chiefHtml;
 
-                data.duties.forEach((element) => {
-                    let guard = "";
-                    element.guard.forEach((el, index, array) => {
-                        var isCurrent = el === currentUser;
-                        guard += " ";
+            data.duties.forEach((element) => {
+               let guard = "";
+               element.guard.forEach((el, index, array) => {
+                  var isCurrent = el === currentUser;
+                  guard += " ";
 
-                        if (isCurrent) { guard += "<marquee behavior='alternate'><em><strong>"; }                       
-                        guard += el.split(" ")[0];
-                        if (isCurrent) { guard += "</strong></em></marquee>"; }                       
-                        if (index != array.length - 1) {
-                            guard += "<br>";
-                        }
-                    });
-                    let rowTemplate = `  
+                  if (isCurrent) {
+                     guard += "<marquee behavior='alternate'><em><strong>";
+                  }
+                  guard += el.split(" ")[0];
+                  if (isCurrent) {
+                     guard += "</strong></em></marquee>";
+                  }
+                  if (index != array.length - 1) {
+                     guard += "<br>";
+                  }
+               });
+               let rowTemplate = `  
                      <div class="tRow df">
                         <div class="rowTimeDesc rowItem">
                            ${element.period}
@@ -167,26 +207,31 @@ function tableRendering(type, table, data, currentUser) {
                         </div>
                      </div>`;
 
-                    document.getElementById(table).innerHTML += rowTemplate;
-                });
+               document.getElementById(table).innerHTML += rowTemplate;
+            });
 
-                var footerHtml = `       </div>
+            var footerHtml = `       </div>
 					     </div>`;
-                document.getElementById(table).innerHTML += footerHtml;
-                break;
+            document.getElementById(table).innerHTML += footerHtml;
+            break;
 
-            case "vacationShift":
-                renderPartOneColumn(table, "В резерві", data.reserve, currentUser);
-                renderPartOneColumn(table, "Відпустка", data.onVacation, currentUser);
-                break;
-        }
-    } else {
-        document.getElementById(table).innerHTML = "";
-    }
+         case "vacationShift":
+            renderPartOneColumn(table, "В резерві", data.reserve, currentUser);
+            renderPartOneColumn(
+               table,
+               "Відпустка",
+               data.onVacation,
+               currentUser
+            );
+            break;
+      }
+   } else {
+      document.getElementById(table).innerHTML = "";
+   }
 }
 
 function renderPart(table, header, data, currentUser) {
-    var headerHtml = `<h2>${header}</h2>
+   var headerHtml = `<h2>${header}</h2>
             <div class="tableWrap" id="tableWrap">
 			<div id="tableBody">
                 <div class="tRow df">
@@ -197,16 +242,16 @@ function renderPart(table, header, data, currentUser) {
 						ПІБ
 					</div>
 				</div>`;
-    document.getElementById(table).innerHTML += headerHtml;
+   document.getElementById(table).innerHTML += headerHtml;
 
-    data.forEach((element) => {
-        var addClass = "";
-        if (element.person === currentUser) {
-            addClass = " currentUser";
-            element.person = `<marquee behavior='alternate'>${element.person}</marquee>`;
-        }
+   data.forEach((element) => {
+      var addClass = "";
+      if (element.person === currentUser) {
+         addClass = " currentUser";
+         element.person = `<marquee behavior='alternate'>${element.person}</marquee>`;
+      }
 
-        var rowTemplate = `  
+      var rowTemplate = `  
                      <div class="tRow df">
                         <div class="rowTimeDesc rowItem">
                            ${element.period}
@@ -216,16 +261,16 @@ function renderPart(table, header, data, currentUser) {
                         </div>
                      </div>`;
 
-        document.getElementById(table).innerHTML += rowTemplate;
-    });
+      document.getElementById(table).innerHTML += rowTemplate;
+   });
 
-    var footerHtml = `       </div>
+   var footerHtml = `       </div>
             </div>`;
-    document.getElementById(table).innerHTML += footerHtml;
+   document.getElementById(table).innerHTML += footerHtml;
 }
 
 function renderPartOneColumn(table, header, data, currentUser) {
-    var headerHtml = `<h2>${header}</h2>
+   var headerHtml = `<h2>${header}</h2>
         <div class="tableWrap" id="tableWrap">
 		<div id="tableBody">
             <div class="tRow df">
@@ -233,28 +278,28 @@ function renderPartOneColumn(table, header, data, currentUser) {
 					ПІБ
 				</div>
 			</div>`;
-    document.getElementById(table).innerHTML += headerHtml;
+   document.getElementById(table).innerHTML += headerHtml;
 
-    data.forEach((element) => {
-        var addClass = "";
-        if (element === currentUser) {
-            addClass = " currentUser";
-            element = `<marquee behavior='alternate'>${element}</marquee>`;
-        }
+   data.forEach((element) => {
+      var addClass = "";
+      if (element === currentUser) {
+         addClass = " currentUser";
+         element = `<marquee behavior='alternate'>${element}</marquee>`;
+      }
 
-        var rowTemplate = `  
+      var rowTemplate = `  
                      <div class="tRow df">
                         <div class="rowGuardDesc rowItem${addClass}">
                            ${element}
                         </div>
                      </div>`;
 
-        document.getElementById(table).innerHTML += rowTemplate;
-    });
+      document.getElementById(table).innerHTML += rowTemplate;
+   });
 
-    var footerHtml = `       </div>
+   var footerHtml = `       </div>
         </div>`;
-    document.getElementById(table).innerHTML += footerHtml;
+   document.getElementById(table).innerHTML += footerHtml;
 }
 
 function renderData(id, data) {
@@ -285,15 +330,15 @@ function hiddenSwitching(visId, hiddId) {
 }
 
 function reorderHidden(visibleIds, hiddenIds) {
-    visibleIds.forEach((elem) => {
-        var element = document.getElementById(elem);
-        element.classList.remove("hidden");
-    });
-    hiddenIds.forEach((elem) => {
-        var element = document.getElementById(elem);
-        element.classList.remove("hidden");
-        element.classList.add("hidden");
-    });
+   visibleIds.forEach((elem) => {
+      var element = document.getElementById(elem);
+      element.classList.remove("hidden");
+   });
+   hiddenIds.forEach((elem) => {
+      var element = document.getElementById(elem);
+      element.classList.remove("hidden");
+      element.classList.add("hidden");
+   });
 }
 
 // !auth
@@ -372,21 +417,19 @@ async function getDateRange() {
       });
 }
 
-
-
 if (navigator.serviceWorker.controller) {
-   console.log(
-      "[PWA Builder] active service worker found, no need to register"
-   );
+   // console.log(
+   //    "[PWA Builder] active service worker found, no need to register"
+   // );
 } else {
    navigator.serviceWorker
       .register("sw.js", {
          scope: "./",
       })
       .then(function (reg) {
-         console.log(
-            "Service worker has been registered for scope:" + reg.scope
-         );
+         // console.log(
+         //    "Service worker has been registered for scope:" + reg.scope
+         // );
       });
 }
 
