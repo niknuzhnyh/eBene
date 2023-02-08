@@ -129,6 +129,8 @@ function tableRendering(type, table, data, currentUser) {
 
       switch (type) {
          case "dutyShift":
+            var addClass = "";
+            if (data.cook === currentUser) addClass = " currentUser";
             var coocHtml = 
                 `<div class="tableWrap">
                     <div class="tRow df" >
