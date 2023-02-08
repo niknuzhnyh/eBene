@@ -98,6 +98,7 @@ function getSchedule(params) {
          return response.json();
       })
       .then((data) => {
+         console.log(data);
          apiData = data;
          if (scheduleBtn == undefined) {
             scheduleBtn = "securityShift";
@@ -308,14 +309,12 @@ function renderPartOneColumn(table, header, data, currentUser) {
          addClass = " currentUser";
          element = `<marquee behavior='alternate'>${element}</marquee>`;
       }
-
       var rowTemplate = `  
                      <div class="tRow df">
                         <div class="rowGuardDesc rowItem${addClass}">
                            ${element}
                         </div>
                      </div>`;
-
       tableContent += rowTemplate;
    });
 
