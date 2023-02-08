@@ -70,13 +70,11 @@ const singOutBtn = document
       authGoogleJWT = "";
       accessToken = "";
       headers = "";
-		reorderHidden(["singInBtn"], ["singOutBtn"]);
-		todayBtn.disabled = true;
-		byDateBtn.disabled = true;
+      reorderHidden(["singInBtn"], ["singOutBtn"]);
+      todayBtn.disabled = true;
+      byDateBtn.disabled = true;
       reorderHidden(["startPage"], ["schedule"]);
    });
-
-
 
 function getSchedule(params) {
    let url = URL;
@@ -100,6 +98,7 @@ function getSchedule(params) {
          if (scheduleBtn == undefined) {
             scheduleBtn = "securityShift";
          }
+			markRender(data);
          tableRendering(
             scheduleBtn,
             "scheduleBody",
@@ -431,6 +430,22 @@ if (navigator.serviceWorker.controller) {
          //    "Service worker has been registered for scope:" + reg.scope
          // );
       });
+}
+
+function markRender(data) {
+   let marks = document.getElementsByClassName("mark");
+   for (const el of marks) {
+		el.innerHTML = "";
+	}
+	if (data.countUserSecurityShift) {
+      document.getElementById('countUserSecurityShift').innerHTML = `<span class="markItem">${data.countUserSecurityShift}</span>`
+	}
+	if (data.countUserDutyShift) {
+      document.getElementById('countUserDutyShift').innerHTML = `<span class="markItem">${data.countUserDutyShift}</span>`
+	}
+	if (data.countUserVacationShift) {
+      document.getElementById('countUserVacationShift').innerHTML = `<span class="markItem">${data.countUserVacationShift}</span>`
+	}
 }
 
 console.log("ok");

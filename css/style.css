@@ -143,6 +143,19 @@ header {
 .dateInptWrap {
    padding-top: 25vh;
 }
+.scheduleIconBtn{
+   position: relative;
+}
+.mark{
+   position: absolute;
+   top: 0;
+   right: -20px;
+}
+.markItem{
+   padding: 5px 10px;
+   border-radius: 100%;
+   background-color: orangered;
+}
 
 /* .startPage{
    display: none;
