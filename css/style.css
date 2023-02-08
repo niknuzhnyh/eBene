@@ -152,6 +152,8 @@ header {
    right: -20px;
 }
 .markItem{
+   color: #ffffff;
+   font-weight: 700;
    padding: 5px 10px;
    border-radius: 100%;
    background-color: orangered;
