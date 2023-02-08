@@ -132,12 +132,12 @@ function tableRendering(type, table, data, currentUser) {
             var addClass = "";
             if (data.cook === currentUser) addClass = " currentUser";
             var coocHtml = 
-                `<div class="tableWrap">
-                    <div class="tRow df" >
-					    <div class="rowItem rowChiefDesc">Мастер шеф</div>
-					    <div class="rowItem rowChief${addClass}" id="chief">${data.cook}</div>
-                    </div>
-				</div>`;
+               `<div class="tableWrap">
+                  <div class="tRow df" >
+                  <div class="rowItem rowChiefDesc">Мастер шеф</div>
+                  <div class="rowItem rowChief${addClass}" id="chief">${data.cook}</div>
+                  </div>
+				   </div>`;
             document.getElementById(table).innerHTML += coocHtml;
 
             renderPart(table, "Черговий", data.chief, currentUser);
@@ -225,32 +225,32 @@ function tableRendering(type, table, data, currentUser) {
                document.getElementById(table).innerHTML += rowTemplate;
             });
 
-            var footerHtml = `       </div>
-					     </div>`;
+            var footerHtml = `</div>
+                  </div>`;
             document.getElementById(table).innerHTML += footerHtml;
             break;
 
-          case "vacationShift":
-              if (data.reserve.length > 0) {
-                  renderPartOneColumn(table, "В резерві", data.reserve, currentUser);
-              }
+         case "vacationShift":
+            if (data.reserve.length > 0) {
+               renderPartOneColumn(table, "В резерві", data.reserve, currentUser);
+            }
 
-              if (data.vacation.length > 0) {
-                  renderPartOneColumn(
-                      table,
-                      "Відпустка",
-                      data.vacation,
-                      currentUser
-                  );
-              }
+            if (data.vacation.length > 0) {
+               renderPartOneColumn(
+                     table,
+                     "Відпустка",
+                     data.vacation,
+                     currentUser
+               );
+            }
 
-              if (data.training.length > 0) {
-                  renderPartOneColumn(table, "Тренування", data.training, currentUser);
-              }
+            if (data.training.length > 0) {
+               renderPartOneColumn(table, "Тренування", data.training, currentUser);
+            }
 
-              if (data.sickLeave.length > 0) {
-                  renderPartOneColumn(table, "Лікування", data.sickLeave, currentUser);
-              }
+            if (data.sickLeave.length > 0) {
+               renderPartOneColumn(table, "Лікування", data.sickLeave, currentUser);
+            }
             break;
       }
    } else {
@@ -262,7 +262,7 @@ function renderPart(table, header, data, currentUser) {
    var headerHtml = `<h2>${header}</h2>
             <div class="tableWrap" id="tableWrap">
 			<div id="tableBody">
-                <div class="tRow df">
+               <div class="tRow df">
 					<div class="rowTimeDesc rowItem">
 						Час
 					</div>
@@ -299,7 +299,7 @@ function renderPart(table, header, data, currentUser) {
 
 function renderPartOneColumn(table, header, data, currentUser) {
    var headerHtml = `<h2>${header}</h2>
-        <div class="tableWrap">`;
+      <div class="tableWrap">`;
 
    var tableContent = "";
    data.forEach((element) => {
@@ -316,7 +316,7 @@ function renderPartOneColumn(table, header, data, currentUser) {
                         </div>
                      </div>`;
 
-       tableContent += rowTemplate;
+      tableContent += rowTemplate;
    });
 
    var footerHtml = `</div>`;
