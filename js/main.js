@@ -98,7 +98,6 @@ function getSchedule(params) {
          return response.json();
       })
       .then((data) => {
-         console.log(data);
          apiData = data;
          if (scheduleBtn == undefined) {
             scheduleBtn = "securityShift";
