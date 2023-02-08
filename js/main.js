@@ -91,6 +91,10 @@ function getSchedule(params) {
    reorderHidden(["preloaderSec"], ["schedule"]);
    fetch(url, headers)
       .then((response) => {
+         if (response.status != 200) {
+            let error = new Error(`Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`);
+            throw error;
+         }
          return response.json();
       })
       .then((data) => {
@@ -98,7 +102,7 @@ function getSchedule(params) {
          if (scheduleBtn == undefined) {
             scheduleBtn = "securityShift";
          }
-			markRender(data);
+         markRender(data);
          tableRendering(
             scheduleBtn,
             "scheduleBody",
@@ -110,8 +114,9 @@ function getSchedule(params) {
          reorderHidden(["schedule"], ["preloaderSec"]);
       })
       .catch((e) => {
-         reorderHidden(["schedule"], ["preloaderSec"]);
+         reorderHidden(["startPage"], ["schedule", "preloaderSec"]);
          console.log("Error: getSchedule");
+         alert(e);
       });
 }
 
@@ -342,7 +347,6 @@ function reorderHidden(visibleIds, hiddenIds) {
 
 // !auth
 function handleCredentialResponse(response) {
-   // console.log(response);
    authGoogleJWT = response.credential;
 
    fetch(AUTH_URL, {
@@ -351,6 +355,10 @@ function handleCredentialResponse(response) {
       },
    })
       .then((response) => {
+         if (response.status != 200) {
+            let error = new Error(`Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`);
+            throw error;
+         }
          return response.json();
       })
       .then((data) => {
@@ -368,6 +376,7 @@ function handleCredentialResponse(response) {
          hiddenSwitching("singInBtn", "singOutBtn");
       })
       .catch((e) => {
+         alert(e);
          console.log(e);
       });
 }
@@ -396,6 +405,10 @@ async function getDateRange() {
    let dateRange = {};
    fetch(url, headers)
       .then((response) => {
+         if (response.status != 200) {
+            let error = new Error(`Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`);
+            throw error;
+         }
          return response.json();
       })
       .then((data) => {
@@ -412,6 +425,7 @@ async function getDateRange() {
          datePicker.max = maxDate;
       })
       .catch((e) => {
+         alert(e);
          console.log("Error: getDateRange");
       });
 }
@@ -435,17 +449,23 @@ if (navigator.serviceWorker.controller) {
 function markRender(data) {
    let marks = document.getElementsByClassName("mark");
    for (const el of marks) {
-		el.innerHTML = "";
-	}
-	if (data.countUserSecurityShift) {
-      document.getElementById('countUserSecurityShift').innerHTML = `<span class="markItem">${data.countUserSecurityShift}</span>`
-	}
-	if (data.countUserDutyShift) {
-      document.getElementById('countUserDutyShift').innerHTML = `<span class="markItem">${data.countUserDutyShift}</span>`
-	}
-	if (data.countUserVacationShift) {
-      document.getElementById('countUserVacationShift').innerHTML = `<span class="markItem">${data.countUserVacationShift}</span>`
-	}
+      el.innerHTML = "";
+   }
+   if (data.countUserSecurityShift) {
+      document.getElementById(
+         "countUserSecurityShift"
+      ).innerHTML = `<span class="markItem">${data.countUserSecurityShift}</span>`;
+   }
+   if (data.countUserDutyShift) {
+      document.getElementById(
+         "countUserDutyShift"
+      ).innerHTML = `<span class="markItem">${data.countUserDutyShift}</span>`;
+   }
+   if (data.countUserVacationShift) {
+      document.getElementById(
+         "countUserVacationShift"
+      ).innerHTML = `<span class="markItem">${data.countUserVacationShift}</span>`;
+   }
 }
 
 console.log("ok");
