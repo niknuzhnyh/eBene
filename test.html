@@ -5,85 +5,22 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://accounts.google.com/gsi/client" async defer></script>
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="css/testStyle.css">
-	<title>Є БЕНЕ</title>
+	<title>Document</title>
 </head>
 
 <body>
-	<header class="header df">
-		<div class="logo"><img src="images/logo.png" alt="logo">
-		</div>
-		<div class="slogan">
-			<p class="sloganInner" id="sloganInner">
-			</p>
-		</div>
-		<!-- <div class="login">
-         <div id="singInBtn" class="singInBtn">
-            <div id="g_id_onload"
-               data-client_id="426438892031-hl14rgfb10fvk1u0e66j13b79qot03v6.apps.googleusercontent.com"
-               data-context="signin" data-ux_mode="popup" data-auto_select="true"
-               data-callback="handleCredentialResponse" data-itp_support="true">
-            </div>
-            <div class="g_id_signin" data-type="icon" data-shape="square" data-theme="filled_black"
-               data-text="signin_with" data-size="large" data-locale="uk">
-            </div>
-         </div>
-         <div id="singOutBtn" class="singOutBtn hidden">
-            <div class="g_id_signout">
-               <img src="images/pngwing.com.png" alt="sign out">
-            </div>
-         </div>
-      </div> -->
-	</header>
-
-	<section class="startPage hidden" id="startPage">
-		<div class="container tac">
-			<div class="meinMenuWrap">
-				<button class="bmenu" id="todayBtn">Графік на сьогодні</button>
-				<button class="bmenu" id="byDateBtn">Графік за датою</button>
-				<p>
-					Невдовзі тут з'явится багато чого корисного та цікавого, чекайте на оновлення.
-				</p>
-			</div>
-		</div>
-	</section>
-	<section class="schedule " id="schedule">
-		<div class="scheduleWrap df aic">
-			<div class="container tac">
-				<div class="scheduleBtns df jcsa" id="scheduleBtns">
-					<div class="scheduleIconBtn" data-responsibility = 'securityShift'><img class="scheduleIcon" src="images/bridge (2).png" alt=""></div>
-					<div class="scheduleIconBtn" data-responsibility = 'dutyShift'><img class="scheduleIcon" src="images/home (3).png" alt="" ></div>
-					<div class="scheduleIconBtn" data-responsibility = 'vacationShift'><img class="scheduleIcon" src="images/car (1).png" alt="" ></div>
-				</div>
-				<div class="scheduleBody" id="scheduleBody">
-
-				</div>
-				<button class="bmenu prev" id="schedulePrev">Назад</button>
-			</div>
-		</div>
-	</section>
-	<section class="preloaderSec hidden" id="preloaderSec">
-		<preloader>
-			<div class="preloader">
-				<div class="preloader__square"></div>
-				<div class="preloader__square"></div>
-				<div class="preloader__square"></div>
-				<div class="preloader__square"></div>
-			</div>
-			<div class="status">Loading<span class="status__dot">.</span><span class="status__dot">.</span><span
-					class="status__dot">.</span></div>
-		</preloader>
-	</section>
-	<section class="dateInpt hidden" id="dateInpt">
-		<div class="dateInptWrap tac">
-			<label for="datePicker">Оберіть дату</label>
-			<input type="date" id="datePicker" name="datePicker">
-			<button class="bmenu" id="datePickerBtn">Отримати графік</button>
-		</div>
-	</section>
-
+	<div class="button" id="button">
+		<div class="arrow" id="arrow"></div>
+	</div>
+	<div class="select_wrap hidden" id="select_wrap">
+		<select name="select" id="select">
+			<option value = 1 selected>1</option>
+			<option value = 2>2</option>
+			<option value = 3>3</option>
+			<option value = 4>4</option>
+		</select>
+	</div>
 	<script src="js/test.js"></script>
 </body>
 
