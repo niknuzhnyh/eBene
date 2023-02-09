@@ -10,6 +10,14 @@ button.onmousedown = () => {
 button.onmouseup = () => {
    clearTimeout(btn_timer);
 };
+button.ontouchstart = () => {
+   btn_timer = setTimeout(() => {
+      select_wrap.classList.remove("hidden");
+   }, 800);
+};
+button.ontouchend = () => {
+   clearTimeout(btn_timer);
+};
 select.onchange = () => {
    let val = select.value;
    alert(val);
