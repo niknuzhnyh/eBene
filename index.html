@@ -27,12 +27,12 @@
         <div class="login">
             <div id="singInBtn" class="singInBtn">
                 <div id="g_id_onload"
-                    data-client_id="426438892031-hl14rgfb10fvk1u0e66j13b79qot03v6.apps.googleusercontent.com"
-                    data-context="signin" data-ux_mode="popup" data-auto_select="true"
-                    data-callback="handleCredentialResponse" data-itp_support="true">
+                     data-client_id="426438892031-hl14rgfb10fvk1u0e66j13b79qot03v6.apps.googleusercontent.com"
+                     data-context="signin" data-ux_mode="popup" data-auto_select="true"
+                     data-callback="handleCredentialResponse" data-itp_support="true">
                 </div>
                 <div class="g_id_signin" data-type="icon" data-shape="square" data-theme="filled_black"
-                    data-text="signin_with" data-size="large" data-locale="uk">
+                     data-text="signin_with" data-size="large" data-locale="uk">
                 </div>
             </div>
             <div id="singOutBtn" class="singOutBtn hidden">
@@ -48,6 +48,7 @@
             <div class="meinMenuWrap">
                 <button class="bmenu" id="todayBtn" disabled>Графік на сьогодні</button>
                 <button class="bmenu" id="byDateBtn" disabled>Графік за датою</button>
+                <button class="bmenu" id="btnGetMySchedule" disabled>Мій графік</button>
                 <p>
                     Невдовзі тут з'явится багато чого корисного та цікавого, чекайте на оновлення.
                 </p>
@@ -60,16 +61,16 @@
                 <div class="scheduleBtns df jcsa" id="scheduleBtns">
                     <div class="scheduleIconBtn" data-responsibility='securityShift'>
                         <img class="scheduleIcon"
-                            src="images/bridge (2).png" alt=""><div class="mark" id="countUserSecurityShift"></div>
-                        </div>
+                             src="images/bridge (2).png" alt=""><div class="mark" id="countUserSecurityShift"></div>
+                    </div>
                     <div class="scheduleIconBtn" data-responsibility='dutyShift'>
                         <img class="scheduleIcon"
-                            src="images/home (3).png" alt=""><div class="mark" id="countUserDutyShift"></div>
-                        </div>
+                             src="images/home (3).png" alt=""><div class="mark" id="countUserDutyShift"></div>
+                    </div>
                     <div class="scheduleIconBtn" data-responsibility='vacationShift'>
                         <img class="scheduleIcon"
-                            src="images/car (1).png" alt=""><div class="mark" id="countUserVacationShift"></div>
-                        </div>
+                             src="images/car (1).png" alt=""><div class="mark" id="countUserVacationShift"></div>
+                    </div>
                 </div>
                 <div class="scheduleDataContainer">
                     <div class="scheduleDataPrevNext hidden"></div>
@@ -89,8 +90,7 @@
                 <div class="preloader__square"></div>
             </div>
             <div class="status">
-                Loading<span class="status__dot">.</span><span class="status__dot">.</span><span
-                    class="status__dot">.</span>
+                Loading<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span>
             </div>
         </preloader>
     </section>
@@ -99,6 +99,26 @@
             <label for="datePicker">Оберіть дату</label>
             <input type="date" id="datePicker" name="datePicker">
             <button class="bmenu" id="datePickerBtn">Отримати графік</button>
+        </div>
+    </section>
+    <section class="schedule hidden" id="mySchedule">
+        <div class="scheduleWrap df aic">
+            <div class="container tac">
+                <div class="scheduleBtns df jcsa myScheduleDateContainer" style="padding-bottom:10px">
+                    <div class="myScheduleDate df">
+                        <label class="datelabel" for="datePickerMyScheduleFrom">З</label>
+                        <input class="myScheduleDatePicker" type="date" id="datePickerMyScheduleFrom" name="datePickerMyScheduleFrom">
+                    </div>
+                    <div class="myScheduleDate df">
+                        <label class="datelabel" for="datePickerMyScheduleTo">По</label>
+                        <input class="myScheduleDatePicker" type="date" id="datePickerMyScheduleTo" name="datePickerMyScheduleTo">
+                    </div>
+                </div>
+                <div class="">
+                    <div class="scheduleBody" id="myScheduleBody"></div>
+                </div>
+                <button class="bmenu prev" id="mySchedulePrev">Назад</button>
+            </div>
         </div>
     </section>
 
