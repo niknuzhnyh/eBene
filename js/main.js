@@ -1,6 +1,8 @@
-const URL =
-   "https://apivarty.azurewebsites.net/api/v2/Schedule/GetDaySchedule?date=";
-const AUTH_URL = "https://apivarty.azurewebsites.net/api/v2/Auth";
+const HOST = "https://apivarty.azurewebsites.net/";
+const URL = HOST + "api/v2/Schedule/GetDaySchedule?date=";
+const AUTH_URL = HOST + "api/v2/Auth";
+const MYSHEDULE_URL = HOST + "api/v2/Schedule/GetMySchedule";
+const DATERANGE_URL = HOST + "api/v2/Schedule/GetAvailableDates";
 
 // const URL = 'example.json';
 let authGoogleJWT, accessToken, headers;
@@ -62,6 +64,32 @@ schedulePrev.onclick = () => {
    requestedDate = undefined;
    reorderHidden(["startPage"], ["schedule"]);
 };
+const mySchedulePrev = document.getElementById("mySchedulePrev");
+mySchedulePrev.onclick = () => {
+    reorderHidden(["startPage"], ["mySchedule"]);
+};
+
+// get my schedule
+const btnGetMySchedule = document.getElementById("btnGetMySchedule");
+btnGetMySchedule.onclick = () => {
+    reorderHidden(["preloaderSec"], ["startPage"]);
+    getMySchedule();
+};
+
+const datePickerMyScheduleFrom = document.getElementById("datePickerMyScheduleFrom"); 
+datePickerMyScheduleFrom.onchange = () => {
+    reorderHidden(["preloaderSec"], ["mySchedule"]);
+    datePickerMyScheduleTo.min = datePickerMyScheduleFrom.value;
+    getMySchedule(datePickerMyScheduleFrom.value, datePickerMyScheduleTo.value);
+};
+
+const datePickerMyScheduleTo = document.getElementById("datePickerMyScheduleTo");
+datePickerMyScheduleTo.onchange = () => {
+    reorderHidden(["preloaderSec"], ["mySchedule"]);
+    datePickerMyScheduleFrom.max = datePickerMyScheduleTo.value;
+    getMySchedule(datePickerMyScheduleFrom.value, datePickerMyScheduleTo.value);
+};
+
 
 // !sign out
 const singOutBtn = document
@@ -73,6 +101,7 @@ const singOutBtn = document
       reorderHidden(["singInBtn"], ["singOutBtn"]);
       todayBtn.disabled = true;
       byDateBtn.disabled = true;
+      btnGetMySchedule.disabled = true;
       reorderHidden(["startPage"], ["schedule"]);
    });
 
@@ -122,9 +151,9 @@ function getSchedule(params) {
 
 function tableRendering(type, table, data, currentUser) {
    if (data) {
-      var pageHeaderHtml = `<h2>Розклад з <span id="dateFrom">${dateFormta(
+       var pageHeaderHtml = `<h2>Розклад з <span id="dateFrom">${dateTimeFormta(
          data.dateFrom
-      )}</span> по <span id="dateTo">${dateFormta(data.dateTo)}</span></h2>`;
+       )}</span> по <span id="dateTo">${dateTimeFormta(data.dateTo)}</span></h2>`;
       document.getElementById(table).innerHTML = pageHeaderHtml;
 
       switch (type) {
@@ -328,7 +357,7 @@ function renderData(id, data) {
    item.innerText = data;
 }
 
-function dateFormta(date) {
+function dateTimeFormta(date) {
    let d = new Intl.DateTimeFormat("uk-UA", {
       year: "numeric",
       month: "long",
@@ -340,6 +369,17 @@ function dateFormta(date) {
    date = Date.parse(date);
    date = d.format(date);
    return date;
+}
+
+function dateFormta(date) {
+    let d = new Intl.DateTimeFormat("uk-UA", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+    });
+    date = Date.parse(date);
+    date = d.format(date);
+    return date;
 }
 
 function hiddenSwitching(visId, hiddId) {
@@ -390,6 +430,7 @@ function handleCredentialResponse(response) {
          getDateRange();
          todayBtn.disabled = false;
          byDateBtn.disabled = false;
+         btnGetMySchedule.disabled = false;
          hiddenSwitching("singInBtn", "singOutBtn");
       })
       .catch((e) => {
@@ -415,12 +456,10 @@ function handleCredentialResponse(response) {
 
 /////////////
 async function getDateRange() {
-   let url =
-      "https://apivarty.azurewebsites.net/api/v2/Schedule/GetAvailableDates";
    let minDate;
    let maxDate;
    let dateRange = {};
-   fetch(url, headers)
+   fetch(DATERANGE_URL, headers)
       .then((response) => {
          if (response.status != 200) {
             let error = new Error(`Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`);
@@ -440,6 +479,11 @@ async function getDateRange() {
          datePicker.value = new Date().toISOString().split("T")[0];
          datePicker.min = minDate;
          datePicker.max = maxDate;
+
+         datePickerMyScheduleFrom.min = minDate;
+         datePickerMyScheduleFrom.max = maxDate;
+         datePickerMyScheduleTo.min = minDate;
+         datePickerMyScheduleTo.max = maxDate;
       })
       .catch((e) => {
          alert(e);
@@ -483,6 +527,136 @@ function markRender(data) {
          "countUserVacationShift"
       ).innerHTML = `<span class="markItem">${data.countUserVacationShift}</span>`;
    }
+}
+
+function getMySchedule(dateFrom, dateTo) {
+    tableRendering(undefined, "scheduleBody", undefined);
+
+    if (!dateFrom || !dateTo) {
+        dateFrom = new Date();
+        dateTo = new Date();
+        dateTo.setDate(dateFrom.getDate() + 10);
+
+        datePickerMyScheduleFrom.value = dateFrom.toISOString().split("T")[0];
+        datePickerMyScheduleTo.value = dateTo.toISOString().split("T")[0];
+
+        datePickerMyScheduleFrom.max = datePickerMyScheduleTo.value;
+        datePickerMyScheduleTo.min = datePickerMyScheduleFrom.value;
+    }
+
+    var url = `${MYSHEDULE_URL}?dateFrom=${datePickerMyScheduleFrom.value}&dateTo=${datePickerMyScheduleTo.value}`;
+
+    fetch(url, headers)
+        .then((response) => {
+            if (response.status != 200) {
+                let error = new Error(`Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`);
+                throw error;
+            }
+            return response.json();
+        })
+        .then((data) => {
+            var htmlTableHeader = `<div class="tableWrap"><div>`;
+            var htmlTableContent = "";
+
+            var shiftType = "";
+            var elDateSchdule = new Date();
+            data.forEach((element) => 
+            {
+                if (element.shiftType !== shiftType) {
+                    shiftType = element.shiftType;
+                    elDateSchdule = dateFormta(element.from);
+
+                    var iconImg = "";
+                    switch (element.shiftType) {
+                        case "Vacation":
+                            iconImg = "car (1).png";
+                            break;
+                        case "Security":
+                            iconImg = "bridge (2).png";
+                            break;
+                        case "Duty":
+                            iconImg = "home (3).png";
+                            break;
+                    }
+
+                    htmlTableContent += `
+                            </div>
+                        </div>
+                        <div class="tableWrap df">
+                            <div class="myScheduleDataIcon"><img class="scheduleIcon" src="images/${iconImg}" alt=""></div>
+                            <div style="width:100%" >
+                                <div class="tRow">
+					                <div class="rowDateHeader">${elDateSchdule}</div>
+                                </div>`;
+                }
+
+                if (elDateSchdule !== dateFormta(element.from)) {
+                    elDateSchdule = dateFormta(element.from);
+                    htmlTableContent += `
+                                <div class="tRow">
+					                <div class="rowDateHeader">${elDateSchdule}</div>
+                                </div>`;
+                }
+
+                htmlTableContent += `  
+                <div class="tRow df">
+					<div class="rowTimeDesc rowItem">${element.period}</div>
+					<div class="rowGuardDesc rowItem">${convertMyScheduleType(element.periodType)}</div>
+				</div>`;
+            });
+            var htmlTableFooter = "</div></div>";
+
+            document.getElementById("myScheduleBody").innerHTML = htmlTableHeader + htmlTableContent + htmlTableFooter;
+        })
+        .then(() => {
+            reorderHidden(["mySchedule"], ["preloaderSec"]);
+        })
+        .catch((e) => {
+            reorderHidden(["startPage"], ["mySchedule", "preloaderSec"]);
+            console.log("Error: getMySchedule");
+            alert(e);
+        });
+}
+
+function convertMyScheduleType(inType) {
+    outType = "";
+    switch (inType) {
+        case "SecurityChief":
+            outType = "Начальник варти";
+            break;
+        case "SecurityGuard":
+            outType = "Чатовий";
+            break;
+        case "DutyChief":
+            outType = "Черговий";
+            break;
+        case "DutyGuard":
+            outType = "Днювальний (охорона)";
+            break;
+        case "DutyCleaning":
+            outType = "Днювальний (прибирання)";
+            break;
+        case "DutyKitchen":
+            outType = "Помічник по кухні";
+            break;
+        case "Vacation":
+            outType = "Відпуста";
+            break;
+        case "AtBase":
+            outType = "В розташуванні";
+            break;
+        case "Reserve":
+            outType = "Резерв";
+            break;
+        case "Practice":
+            outType = "Тренування";
+            break;
+        case "SickDay":
+            outType = "Лікарняний";
+            break;
+    }
+
+    return outType;
 }
 
 console.log("ok");

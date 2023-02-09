@@ -39,6 +39,24 @@ button {
    text-orientation: mixed;
 }
 
+.myScheduleDataIcon {
+    align-self: center;
+}
+
+.datelabel {
+    margin-bottom: unset;
+    align-self : center;
+}
+
+.myScheduleDate{
+    width:40%;
+}
+.myScheduleDateContainer {
+    padding-left: 3.5rem;
+}
+.myScheduleDatePicker{
+    width:auto;
+}
 .currentUser {
    font-style: italic;
    font-weight: bolder;
