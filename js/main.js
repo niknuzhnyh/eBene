@@ -598,7 +598,7 @@ function getMySchedule(dateFrom, dateTo) {
 
                 htmlTableContent += `  
                 <div class="tRow df">
-					<div class="rowTimeDesc rowItem">${element.period}</div>
+					<div class="rowTimeDesc rowItemPeriod">${element.period}</div>
 					<div class="rowGuardDesc rowItem">${convertMyScheduleType(element.periodType)}</div>
 				</div>`;
             });

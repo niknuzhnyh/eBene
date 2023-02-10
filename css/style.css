@@ -140,6 +140,11 @@ header {
    min-height: 2rem;
    padding: 0 0.5rem;
 }
+.rowDateHeader {
+    text-align: right;
+    font-style: italic;
+}
+
 .tRow:not(:first-child) {
    border-top: none;
 }
@@ -154,6 +159,10 @@ header {
 .rowChief,
 .rowGuardDesc {
    flex-grow: 1;
+}
+.rowItemPeriod {
+    line-height: 2rem;
+    width: 8rem;
 }
 .preloaderWrap {
    padding-top: 40vh;
