@@ -18,8 +18,9 @@ button.ontouchstart = () => {
 button.ontouchend = () => {
    clearTimeout(btn_timer);
 };
-select.onchange = () => {
+document.getElementById('ok').onclick = () => {
    let val = select.value;
    alert(val);
    select_wrap.classList.add("hidden");
-};
+}
+

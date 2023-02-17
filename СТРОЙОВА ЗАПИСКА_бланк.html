@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ua">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#4285f4" />
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/table.css">
+	<link rel="manifest" href="manifest.json">
+	<title>Є БЕНЕ Стройова записка</title>
+	<script src="js/swiped-events.js"></script>
+</head>
+
+<body>
+	<div class="memoInpt" id="memoInpt">
+		<div class="memoInptWrap tac">
+			<label for="absenteesNumInpt">Введіть число відсутніх</label>
+			<input type="number" id="absenteesNumInpt" name="absenteesNumInpt">
+			<button class="bmenu" id="absenteesNumBtn">Отримати записку</button>
+		</div>
+	</div>
+	<div class="memorandum hidden" id="memorandum">
+	</div>
+
+	<script src="js/memoTamplate.js"></script>
+	<script src="js/memorandum.js"></script>
+
+</body>
+
+</html>

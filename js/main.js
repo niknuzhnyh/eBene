@@ -66,30 +66,33 @@ schedulePrev.onclick = () => {
 };
 const mySchedulePrev = document.getElementById("mySchedulePrev");
 mySchedulePrev.onclick = () => {
-    reorderHidden(["startPage"], ["mySchedule"]);
+   reorderHidden(["startPage"], ["mySchedule"]);
 };
 
 // get my schedule
 const btnGetMySchedule = document.getElementById("btnGetMySchedule");
 btnGetMySchedule.onclick = () => {
-    reorderHidden(["preloaderSec"], ["startPage"]);
-    getMySchedule();
+   reorderHidden(["preloaderSec"], ["startPage"]);
+   getMySchedule();
 };
 
-const datePickerMyScheduleFrom = document.getElementById("datePickerMyScheduleFrom"); 
+const datePickerMyScheduleFrom = document.getElementById(
+   "datePickerMyScheduleFrom"
+);
 datePickerMyScheduleFrom.onchange = () => {
-    reorderHidden(["preloaderSec"], ["mySchedule"]);
-    datePickerMyScheduleTo.min = datePickerMyScheduleFrom.value;
-    getMySchedule(datePickerMyScheduleFrom.value, datePickerMyScheduleTo.value);
+   reorderHidden(["preloaderSec"], ["mySchedule"]);
+   datePickerMyScheduleTo.min = datePickerMyScheduleFrom.value;
+   getMySchedule(datePickerMyScheduleFrom.value, datePickerMyScheduleTo.value);
 };
 
-const datePickerMyScheduleTo = document.getElementById("datePickerMyScheduleTo");
+const datePickerMyScheduleTo = document.getElementById(
+   "datePickerMyScheduleTo"
+);
 datePickerMyScheduleTo.onchange = () => {
-    reorderHidden(["preloaderSec"], ["mySchedule"]);
-    datePickerMyScheduleFrom.max = datePickerMyScheduleTo.value;
-    getMySchedule(datePickerMyScheduleFrom.value, datePickerMyScheduleTo.value);
+   reorderHidden(["preloaderSec"], ["mySchedule"]);
+   datePickerMyScheduleFrom.max = datePickerMyScheduleTo.value;
+   getMySchedule(datePickerMyScheduleFrom.value, datePickerMyScheduleTo.value);
 };
-
 
 // !sign out
 const singOutBtn = document
@@ -121,7 +124,9 @@ function getSchedule(params) {
    fetch(url, headers)
       .then((response) => {
          if (response.status != 200) {
-            let error = new Error(`Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`);
+            let error = new Error(
+               `Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`
+            );
             throw error;
          }
          return response.json();
@@ -151,17 +156,18 @@ function getSchedule(params) {
 
 function tableRendering(type, table, data, currentUser) {
    if (data) {
-       var pageHeaderHtml = `<h2>Розклад з <span id="dateFrom">${dateTimeFormta(
+      var pageHeaderHtml = `<h2>Розклад з <span id="dateFrom">${dateTimeFormta(
          data.dateFrom
-       )}</span> по <span id="dateTo">${dateTimeFormta(data.dateTo)}</span></h2>`;
+      )}</span> по <span id="dateTo">${dateTimeFormta(
+         data.dateTo
+      )}</span></h2>`;
       document.getElementById(table).innerHTML = pageHeaderHtml;
 
       switch (type) {
          case "dutyShift":
             var addClass = "";
             if (data.cook === currentUser) addClass = " currentUser";
-            var coocHtml = 
-               `<div class="tableWrap">
+            var coocHtml = `<div class="tableWrap">
                   <div class="tRow df" >
                   <div class="rowItem rowChiefDesc">Мастер шеф</div>
                   <div class="rowItem rowChief${addClass}" id="chief">${data.cook}</div>
@@ -261,24 +267,39 @@ function tableRendering(type, table, data, currentUser) {
 
          case "vacationShift":
             if (data.reserve.length > 0) {
-               renderPartOneColumn(table, "В резерві", data.reserve, currentUser);
+               renderPartOneColumn(
+                  table,
+                  "В резерві",
+                  data.reserve,
+                  currentUser
+               );
             }
 
             if (data.vacation.length > 0) {
                renderPartOneColumn(
-                     table,
-                     "Відпустка",
-                     data.vacation,
-                     currentUser
+                  table,
+                  "Відпустка",
+                  data.vacation,
+                  currentUser
                );
             }
 
             if (data.training.length > 0) {
-               renderPartOneColumn(table, "Тренування", data.training, currentUser);
+               renderPartOneColumn(
+                  table,
+                  "Тренування",
+                  data.training,
+                  currentUser
+               );
             }
 
             if (data.sickLeave.length > 0) {
-               renderPartOneColumn(table, "Лікування", data.sickLeave, currentUser);
+               renderPartOneColumn(
+                  table,
+                  "Лікування",
+                  data.sickLeave,
+                  currentUser
+               );
             }
             break;
       }
@@ -347,7 +368,8 @@ function renderPartOneColumn(table, header, data, currentUser) {
    });
 
    var footerHtml = `</div>`;
-   document.getElementById(table).innerHTML += headerHtml + tableContent + footerHtml;
+   document.getElementById(table).innerHTML +=
+      headerHtml + tableContent + footerHtml;
 }
 
 function renderData(id, data) {
@@ -370,14 +392,14 @@ function dateTimeFormta(date) {
 }
 
 function dateFormta(date) {
-    let d = new Intl.DateTimeFormat("uk-UA", {
-        year: "numeric",
-        month: "long",
-        day: "2-digit",
-    });
-    date = Date.parse(date);
-    date = d.format(date);
-    return date;
+   let d = new Intl.DateTimeFormat("uk-UA", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+   });
+   date = Date.parse(date);
+   date = d.format(date);
+   return date;
 }
 
 function hiddenSwitching(visId, hiddId) {
@@ -411,7 +433,9 @@ function handleCredentialResponse(response) {
    })
       .then((response) => {
          if (response.status != 200) {
-            let error = new Error(`Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`);
+            let error = new Error(
+               `Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`
+            );
             throw error;
          }
          return response.json();
@@ -460,7 +484,9 @@ async function getDateRange() {
    fetch(DATERANGE_URL, headers)
       .then((response) => {
          if (response.status != 200) {
-            let error = new Error(`Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`);
+            let error = new Error(
+               `Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`
+            );
             throw error;
          }
          return response.json();
@@ -528,56 +554,57 @@ function markRender(data) {
 }
 
 function getMySchedule(dateFrom, dateTo) {
-    tableRendering(undefined, "scheduleBody", undefined);
+   tableRendering(undefined, "scheduleBody", undefined);
 
-    if (!dateFrom || !dateTo) {
-        dateFrom = new Date();
-        dateTo = new Date();
-        dateTo.setDate(dateFrom.getDate() + 10);
+   if (!dateFrom || !dateTo) {
+      dateFrom = new Date();
+      dateTo = new Date();
+      dateTo.setDate(dateFrom.getDate() + 10);
 
-        datePickerMyScheduleFrom.value = dateFrom.toISOString().split("T")[0];
-        datePickerMyScheduleTo.value = dateTo.toISOString().split("T")[0];
+      datePickerMyScheduleFrom.value = dateFrom.toISOString().split("T")[0];
+      datePickerMyScheduleTo.value = dateTo.toISOString().split("T")[0];
 
-        datePickerMyScheduleFrom.max = datePickerMyScheduleTo.value;
-        datePickerMyScheduleTo.min = datePickerMyScheduleFrom.value;
-    }
+      datePickerMyScheduleFrom.max = datePickerMyScheduleTo.value;
+      datePickerMyScheduleTo.min = datePickerMyScheduleFrom.value;
+   }
 
-    var url = `${MYSHEDULE_URL}?dateFrom=${datePickerMyScheduleFrom.value}&dateTo=${datePickerMyScheduleTo.value}`;
+   var url = `${MYSHEDULE_URL}?dateFrom=${datePickerMyScheduleFrom.value}&dateTo=${datePickerMyScheduleTo.value}`;
 
-    fetch(url, headers)
-        .then((response) => {
-            if (response.status != 200) {
-                let error = new Error(`Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`);
-                throw error;
-            }
-            return response.json();
-        })
-        .then((data) => {
-            var htmlTableHeader = `<div class="tableWrap"><div>`;
-            var htmlTableContent = "";
+   fetch(url, headers)
+      .then((response) => {
+         if (response.status != 200) {
+            let error = new Error(
+               `Помилка '${response.statusText}' код відповіді '${response.status}' . Зверніться до адміністратора`
+            );
+            throw error;
+         }
+         return response.json();
+      })
+      .then((data) => {
+         var htmlTableHeader = `<div class="tableWrap"><div>`;
+         var htmlTableContent = "";
 
-            var shiftType = "";
-            var elDateSchdule = new Date();
-            data.forEach((element) => 
-            {
-                if (element.shiftType !== shiftType) {
-                    shiftType = element.shiftType;
-                    elDateSchdule = dateFormta(element.from);
+         var shiftType = "";
+         var elDateSchdule = new Date();
+         data.forEach((element) => {
+            if (element.shiftType !== shiftType) {
+               shiftType = element.shiftType;
+               elDateSchdule = dateFormta(element.from);
 
-                    var iconImg = "";
-                    switch (element.shiftType) {
-                        case "Vacation":
-                            iconImg = "car (1).png";
-                            break;
-                        case "Security":
-                            iconImg = "bridge (2).png";
-                            break;
-                        case "Duty":
-                            iconImg = "home (3).png";
-                            break;
-                    }
+               var iconImg = "";
+               switch (element.shiftType) {
+                  case "Vacation":
+                     iconImg = "car (1).png";
+                     break;
+                  case "Security":
+                     iconImg = "bridge (2).png";
+                     break;
+                  case "Duty":
+                     iconImg = "home (3).png";
+                     break;
+               }
 
-                    htmlTableContent += `
+               htmlTableContent += `
                             </div>
                         </div>
                         <div class="tableWrap df">
@@ -586,75 +613,76 @@ function getMySchedule(dateFrom, dateTo) {
                                 <div class="tRow">
 					                <div class="rowDateHeader">${elDateSchdule}</div>
                                 </div>`;
-                }
+            }
 
-                if (elDateSchdule !== dateFormta(element.from)) {
-                    elDateSchdule = dateFormta(element.from);
-                    htmlTableContent += `
+            if (elDateSchdule !== dateFormta(element.from)) {
+               elDateSchdule = dateFormta(element.from);
+               htmlTableContent += `
                                 <div class="tRow">
 					                <div class="rowDateHeader">${elDateSchdule}</div>
                                 </div>`;
-                }
+            }
 
-                htmlTableContent += `  
+            htmlTableContent += `  
                 <div class="tRow df">
-					<div class="rowTimeDesc rowItemPeriod">${element.period}</div>
+					<div class="rowTimeDesc rowItem">${element.period}</div>
 					<div class="rowGuardDesc rowItem">${convertMyScheduleType(element.periodType)}</div>
 				</div>`;
-            });
-            var htmlTableFooter = "</div></div>";
+         });
+         var htmlTableFooter = "</div></div>";
 
-            document.getElementById("myScheduleBody").innerHTML = htmlTableHeader + htmlTableContent + htmlTableFooter;
-        })
-        .then(() => {
-            reorderHidden(["mySchedule"], ["preloaderSec"]);
-        })
-        .catch((e) => {
-            reorderHidden(["startPage"], ["mySchedule", "preloaderSec"]);
-            console.log("Error: getMySchedule");
-            alert(e);
-        });
+         document.getElementById("myScheduleBody").innerHTML =
+            htmlTableHeader + htmlTableContent + htmlTableFooter;
+      })
+      .then(() => {
+         reorderHidden(["mySchedule"], ["preloaderSec"]);
+      })
+      .catch((e) => {
+         reorderHidden(["startPage"], ["mySchedule", "preloaderSec"]);
+         console.log("Error: getMySchedule");
+         alert(e);
+      });
 }
 
 function convertMyScheduleType(inType) {
-    outType = "";
-    switch (inType) {
-        case "SecurityChief":
-            outType = "Начальник варти";
-            break;
-        case "SecurityGuard":
-            outType = "Чатовий";
-            break;
-        case "DutyChief":
-            outType = "Черговий";
-            break;
-        case "DutyGuard":
-            outType = "Днювальний (охорона)";
-            break;
-        case "DutyCleaning":
-            outType = "Днювальний (прибирання)";
-            break;
-        case "DutyKitchen":
-            outType = "Помічник по кухні";
-            break;
-        case "Vacation":
-            outType = "Відпуста";
-            break;
-        case "AtBase":
-            outType = "В розташуванні";
-            break;
-        case "Reserve":
-            outType = "Резерв";
-            break;
-        case "Practice":
-            outType = "Тренування";
-            break;
-        case "SickDay":
-            outType = "Лікарняний";
-            break;
-    }
+   outType = "";
+   switch (inType) {
+      case "SecurityChief":
+         outType = "Начальник варти";
+         break;
+      case "SecurityGuard":
+         outType = "Чатовий";
+         break;
+      case "DutyChief":
+         outType = "Черговий";
+         break;
+      case "DutyGuard":
+         outType = "Днювальний (охорона)";
+         break;
+      case "DutyCleaning":
+         outType = "Днювальний (прибирання)";
+         break;
+      case "DutyKitchen":
+         outType = "Помічник по кухні";
+         break;
+      case "Vacation":
+         outType = "Відпустка";
+         break;
+      case "AtBase":
+         outType = "В розташуванні";
+         break;
+      case "Reserve":
+         outType = "Резерв";
+         break;
+      case "Practice":
+         outType = "Тренування";
+         break;
+      case "SickDay":
+         outType = "Лікарняний";
+         break;
+   }
 
-    return outType;
+   return outType;
 }
 
 console.log("ok");
