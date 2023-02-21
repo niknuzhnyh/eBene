@@ -51,9 +51,9 @@ button {
 .myScheduleDate{
     width:40%;
 }
-.myScheduleDateContainer {
+/* .myScheduleDateContainer {
     padding-left: 3.5rem;
-}
+} */
 .myScheduleDatePicker{
     width:auto;
 }
@@ -172,6 +172,12 @@ header {
 }
 .scheduleIconBtn{
    position: relative;
+}
+.scheduleIconBtn.active{
+   border: 1px solid orangered;
+}
+.myScheduleDatePicker{
+   margin: 5px;
 }
 .mark{
    position: absolute;

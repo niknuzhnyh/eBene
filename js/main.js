@@ -39,6 +39,10 @@ for (const el of scheduleBtns) {
          apiData[scheduleBtn],
          apiData.currentUser
       );
+      for (const btn of scheduleBtns) {
+         btn.classList.remove('active')
+      }
+      el.classList.add('active')
    };
 }
 // Get today's schedule
@@ -607,7 +611,7 @@ function getMySchedule(dateFrom, dateTo) {
                htmlTableContent += `
                             </div>
                         </div>
-                        <div class="tableWrap df">
+                        <div class="tableWrap">
                             <div class="myScheduleDataIcon"><img class="scheduleIcon" src="images/${iconImg}" alt=""></div>
                             <div style="width:100%" >
                                 <div class="tRow">
