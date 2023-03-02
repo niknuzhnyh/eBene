@@ -14,21 +14,35 @@ let requestedDate;
 let apiData;
 
 document.addEventListener("swiped-left", function (e) {
-   if (requestedDate) {
-      var date = new Date(requestedDate);
-      date.setDate(date.getDate() + 1);
-
-      getSchedule(date.toISOString());
-   }
+   swipedHandler(1);
 });
 document.addEventListener("swiped-right", function (e) {
+   swipedHandler(-1);
+});
+
+let sliderButtonPrev = document.getElementById('sliderButtonPrev')
+sliderButtonPrev.onclick = () => {
+   swipedHandler(-1);
+};
+let sliderButtonNext = document.getElementById('sliderButtonNext')
+sliderButtonNext.onclick = () => {
+   swipedHandler(1);
+};
+
+
+if (navigator.maxTouchPoints > 1) {
+   sliderButtonPrev.classList.toggle("hidden");
+   sliderButtonNext.classList.toggle("hidden");
+}
+
+function swipedHandler(direction) {
    if (requestedDate) {
       var date = new Date(requestedDate);
-      date.setDate(date.getDate() - 1);
+      date.setDate(date.getDate() + direction);
 
       getSchedule(date.toISOString());
    }
-});
+}
 
 for (const el of scheduleBtns) {
    el.onclick = () => {
