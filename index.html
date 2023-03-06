@@ -16,6 +16,14 @@
 </head>
 
 <body>
+	<script>
+		const pingWarmingUpService = async () => {
+			await fetch("https://apivarty.azurewebsites.net");
+		}
+		
+		pingWarmingUpService();
+	</script>
+  
     <header class="header df jcsb">
         <div class="logo">
             <img src="images/logo.png" alt="logo">
