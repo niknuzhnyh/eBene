@@ -74,6 +74,9 @@ button {
 .tac {
    text-align: center;
 }
+.tar{
+   text-align: right;
+}
 .jcsb {
    justify-content: space-between;
 }
@@ -214,6 +217,24 @@ button {
 }
 .sliderButtonNext{
    right: 0.5rem;
+}
+.sli select{
+   max-width: 45%;
+   margin: 5px;
+   height: 1.5rem;
+}
+.sli p{
+   max-width: 45%;
+   margin: 5px;
+}
+.noteSection{
+   padding: 20px 0;
+}
+.noteSection h2{
+   margin: 1rem auto;
+}
+.noteBody p{
+   width: 50%;
 }
 
 

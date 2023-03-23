@@ -2,15 +2,15 @@
 <html lang="uk">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#4285f4" />
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="manifest" href="manifest.json" />
     <title>Є БЕНЕ</title>
     <script src="js/swiped-events.js"></script>
 </head>
@@ -25,27 +25,24 @@
 	</script>
   
     <header class="header df jcsb">
-        <div class="logo">
-            <img src="images/logo.png" alt="logo">
+        <div class="logo" id="logo">
+            <img src="images/logo.png" alt="logo" />
         </div>
         <div class="slogan">
-            <p class="sloganInner" id="sloganInner">
-            </p>
+            <p class="sloganInner" id="sloganInner"></p>
         </div>
         <div class="login">
             <div id="singInBtn" class="singInBtn">
                 <div id="g_id_onload"
-                     data-client_id="426438892031-hl14rgfb10fvk1u0e66j13b79qot03v6.apps.googleusercontent.com"
-                     data-context="signin" data-ux_mode="popup" data-auto_select="true"
-                     data-callback="handleCredentialResponse" data-itp_support="true">
-                </div>
+                    data-client_id="426438892031-hl14rgfb10fvk1u0e66j13b79qot03v6.apps.googleusercontent.com"
+                    data-context="signin" data-ux_mode="popup" data-auto_select="true"
+                    data-callback="handleCredentialResponse" data-itp_support="true"></div>
                 <div class="g_id_signin" data-type="icon" data-shape="square" data-theme="filled_black"
-                     data-text="signin_with" data-size="large" data-locale="uk">
-                </div>
+                    data-text="signin_with" data-size="large" data-locale="uk"></div>
             </div>
             <div id="singOutBtn" class="singOutBtn hidden">
                 <div class="g_id_signout">
-                    <img src="images/pngwing.com.png" alt="sign out">
+                    <img src="images/pngwing.com.png" alt="sign out" />
                 </div>
             </div>
         </div>
@@ -53,11 +50,19 @@
     <section class="startPage" id="startPage">
         <div class="container tac">
             <div class="meinMenuWrap">
-                <button class="bmenu" id="todayBtn" disabled>Графік на сьогодні</button>
+                <button class="bmenu" id="todayBtn" disabled>
+                    Графік на сьогодні
+                </button>
                 <button class="bmenu" id="byDateBtn" disabled>Графік за датою</button>
-                <button class="bmenu" id="btnGetMySchedule" disabled>Мій графік</button>
+                <button class="bmenu" id="btnGetMySchedule" disabled>
+                    Мій графік
+                </button>
+                <button class="bmenu hidden" id="testBtn">
+                    TEST
+                </button>
                 <p>
-                    Невдовзі тут з'явится багато чого корисного та цікавого, чекайте на оновлення.
+                    Невдовзі тут з'явится багато чого корисного та цікавого, чекайте на
+                    оновлення.
                 </p>
             </div>
         </div>
@@ -66,17 +71,17 @@
         <div class="scheduleWrap df aic">
             <div class="container tac">
                 <div class="scheduleBtns df jcsa" id="scheduleBtns">
-                    <div class="scheduleIconBtn active" data-responsibility='securityShift'>
-                        <img class="scheduleIcon"
-                             src="images/bridge (2).png" alt=""><div class="mark" id="countUserSecurityShift"></div>
+                    <div class="scheduleIconBtn active" data-responsibility="securityShift">
+                        <img class="scheduleIcon" src="images/bridge (2).png" alt="" />
+                        <div class="mark" id="countUserSecurityShift"></div>
                     </div>
-                    <div class="scheduleIconBtn" data-responsibility='dutyShift'>
-                        <img class="scheduleIcon"
-                             src="images/home (3).png" alt=""><div class="mark" id="countUserDutyShift"></div>
+                    <div class="scheduleIconBtn" data-responsibility="dutyShift">
+                        <img class="scheduleIcon" src="images/home (3).png" alt="" />
+                        <div class="mark" id="countUserDutyShift"></div>
                     </div>
-                    <div class="scheduleIconBtn" data-responsibility='vacationShift'>
-                        <img class="scheduleIcon"
-                             src="images/car (1).png" alt=""><div class="mark" id="countUserVacationShift"></div>
+                    <div class="scheduleIconBtn" data-responsibility="vacationShift">
+                        <img class="scheduleIcon" src="images/car (1).png" alt="" />
+                        <div class="mark" id="countUserVacationShift"></div>
                     </div>
                 </div>
                 <div class="scheduleDataContainer">
@@ -103,28 +108,31 @@
                 <div class="preloader__square"></div>
             </div>
             <div class="status">
-                Loading<span class="status__dot">.</span><span class="status__dot">.</span><span class="status__dot">.</span>
+                Loading<span class="status__dot">.</span><span class="status__dot">.</span><span
+                    class="status__dot">.</span>
             </div>
         </preloader>
     </section>
     <section class="dateInpt hidden" id="dateInpt">
         <div class="dateInptWrap tac">
             <label for="datePicker">Оберіть дату</label>
-            <input type="date" id="datePicker" name="datePicker">
+            <input type="date" id="datePicker" name="datePicker" />
             <button class="bmenu" id="datePickerBtn">Отримати графік</button>
         </div>
     </section>
     <section class="schedule hidden" id="mySchedule">
         <div class="scheduleWrap df aic">
             <div class="container tac">
-                <div class="scheduleBtns df jcsa myScheduleDateContainer" style="padding-bottom:10px">
+                <div class="scheduleBtns df jcsa myScheduleDateContainer" style="padding-bottom: 10px">
                     <div class="myScheduleDate df">
                         <label class="datelabel" for="datePickerMyScheduleFrom">З</label>
-                        <input class="myScheduleDatePicker" type="date" id="datePickerMyScheduleFrom" name="datePickerMyScheduleFrom">
+                        <input class="myScheduleDatePicker" type="date" id="datePickerMyScheduleFrom"
+                            name="datePickerMyScheduleFrom" />
                     </div>
                     <div class="myScheduleDate df">
                         <label class="datelabel" for="datePickerMyScheduleTo">По</label>
-                        <input class="myScheduleDatePicker" type="date" id="datePickerMyScheduleTo" name="datePickerMyScheduleTo">
+                        <input class="myScheduleDatePicker" type="date" id="datePickerMyScheduleTo"
+                            name="datePickerMyScheduleTo" />
                     </div>
                 </div>
                 <div class="">
@@ -133,6 +141,8 @@
                 <button class="bmenu prev" id="mySchedulePrev">Назад</button>
             </div>
         </div>
+    </section>
+    <section class="note hidden" id="note">
     </section>
 
     <script src="js/main.js"></script>
