@@ -710,8 +710,9 @@ function testModeActivate(btn) {
   };
 }
 
+const note = document.getElementById("note");
+
 testBtn.onclick = () => {
-  const note = document.getElementById("note");
   note.innerHTML = "";
   reorderHidden(["note"], ["startPage"]);
 
@@ -829,7 +830,7 @@ testBtn.onclick = () => {
   }
 
   function renderStuffOnDutyShedule() {
-    const note = document.getElementById("note");
+    window.scrollTo( 0, 0 );
     let selectsCollection = document.getElementsByClassName("selectItem");
     let taskGroups = {
       guard: [],
