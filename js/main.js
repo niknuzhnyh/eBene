@@ -714,8 +714,8 @@ const note = document.getElementById("note");
 
 testBtn.onclick = () => {
   note.innerHTML = "";
-  reorderHidden(["note"], ["startPage"]);
-
+  reorderHidden(["preloaderSec"], ["startPage"]);
+  
   let dailyDutyArr = ["DutyChief", "DutyCleaning", "DutyKitchen", "DutyGuard"];
 
   //Create array of options to be added
@@ -746,6 +746,7 @@ testBtn.onclick = () => {
       return response.json();
     })
     .then((data) => {
+      reorderHidden(["note"], ["preloaderSec"]);
       selectListRender(data);
     });
 
