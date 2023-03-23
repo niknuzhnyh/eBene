@@ -6,7 +6,7 @@ const DATERANGE_URL = HOST + "api/v2/Schedule/GetAvailableDates";
 const GET_STAFF_WITH_DUTY_URL = HOST + "api/v2//Staff/GetStaffWithDuty";
 
 // const URL = 'example.json';
-let authGoogleJWT, accessToken, headers;
+let authGoogleJWT, accessToken, headers, userFirstName;
 
 // schedule selection
 let scheduleBtns = document.getElementsByClassName("scheduleIconBtn");
@@ -431,6 +431,18 @@ function handleCredentialResponse(response) {
     .then((data) => {
       let slogan = data.token.slogan;
       accessToken = data.token.accessToken;
+      userFirstName = parseJwt(accessToken).name.split(" ")[0];
+
+      if (
+        userFirstName == "Нужних" ||
+        userFirstName == "Пономаренко" ||
+        userFirstName == "Фунер" ||
+        userFirstName == "Мартиненко" ||
+        userFirstName == "Хижняк"
+      ) {
+        document.getElementById("testBtn").classList.toggle("hidden");
+      }
+
       document.getElementById("sloganInner").innerText = slogan;
       headers = {
         headers: {
@@ -449,20 +461,20 @@ function handleCredentialResponse(response) {
     });
 }
 
-// function parseJwt(token) {
-//    var base64Url = token.split(".")[1];
-//    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-//    var jsonPayload = decodeURIComponent(
-//       window
-//          .atob(base64)
-//          .split("")
-//          .map(function (c) {
-//             return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-//          })
-//          .join("")
-//    );
-//    return JSON.parse(jsonPayload);
-// }
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+  return JSON.parse(jsonPayload);
+}
 
 /////////////
 async function getDateRange() {
@@ -872,13 +884,13 @@ testBtn.onclick = () => {
     section.appendChild(h);
 
     notePartRender(noteBody, noteBodyItems);
-    let btn = document.createElement('button')
-    btn.innerText = 'Назад'
-    btn.classList.add('bmenu')
-    btn.onclick = () =>  {
+    let btn = document.createElement("button");
+    btn.innerText = "Назад";
+    btn.classList.add("bmenu");
+    btn.onclick = () => {
       note.innerHTML = "";
       reorderHidden(["startPage"], ["note"]);
-    }
+    };
     section.appendChild(noteBody);
     section.appendChild(btn);
 
