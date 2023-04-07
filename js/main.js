@@ -449,6 +449,7 @@ function handleCredentialResponse(response) {
           Authorization: `Bearer ${accessToken}`,
         },
       };
+      console.log(headers.headers.Authorization);
       getDateRange();
       todayBtn.disabled = false;
       byDateBtn.disabled = false;
