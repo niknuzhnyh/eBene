@@ -560,7 +560,7 @@ function getMySchedule(dateFrom, dateTo) {
   if (!dateFrom || !dateTo) {
     dateFrom = new Date();
     dateTo = new Date();
-    dateTo.setDate(dateFrom.getDate() + 10);
+    dateTo.setDate(dateFrom.getDate() + 1);
 
     datePickerMyScheduleFrom.value = dateFrom.toISOString().split("T")[0];
     datePickerMyScheduleTo.value = dateTo.toISOString().split("T")[0];
