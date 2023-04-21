@@ -14,6 +14,9 @@ let scheduleBtn;
 let requestedDate;
 let apiData;
 
+// dates
+let minDate, maxDate;
+
 document.addEventListener("swiped-left", function (e) {
   swipedHandler(1);
 });
@@ -432,7 +435,6 @@ function handleCredentialResponse(response) {
       let slogan = data.token.slogan;
       accessToken = data.token.accessToken;
       userFirstName = parseJwt(accessToken).name.split(" ")[0];
-
       if (
         userFirstName == "Нужних" ||
         userFirstName == "Пономаренко" ||
@@ -479,8 +481,6 @@ function parseJwt(token) {
 
 /////////////
 async function getDateRange() {
-  let minDate;
-  let maxDate;
   fetch(DATERANGE_URL, headers)
     .then((response) => {
       if (response.status != 200) {
@@ -560,7 +560,8 @@ function getMySchedule(dateFrom, dateTo) {
   if (!dateFrom || !dateTo) {
     dateFrom = new Date();
     dateTo = new Date();
-    dateTo.setDate(dateFrom.getDate() + 1);
+    let dateToSet = maxDate > (dateFrom.getDate() + 15) ? maxDate : (dateFrom.getDate() + 10);
+    dateTo.setDate(dateToSet);
 
     datePickerMyScheduleFrom.value = dateFrom.toISOString().split("T")[0];
     datePickerMyScheduleTo.value = dateTo.toISOString().split("T")[0];
